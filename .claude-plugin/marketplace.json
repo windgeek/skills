@@ -2,7 +2,7 @@
   "name": "windgeek-skills",
   "owner": { "name": "windgeek" },
   "metadata": {
-    "description": "Open-source Claude Code skills by windgeek",
+    "description": "Open-source Agent Skills by windgeek",
     "version": "0.1.0"
   },
   "plugins": [
