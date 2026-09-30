@@ -4,7 +4,7 @@ Open-source [Claude Code](https://claude.com/claude-code) skills. / 开源的 Cl
 
 | Skill | What it does |
 |---|---|
-| [`voice-clone`](voice-clone/) | Clone your own voice locally on a Mac (Apple Silicon) with CosyVoice3 and generate Chinese / mixed Chinese-English narration. / 在 Mac 本地复刻你自己的声音，生成中文（及中英混合）配音。 |
+| [`voice-clone`](skills/voice-clone/) | Clone your own voice locally on a Mac (Apple Silicon) with CosyVoice3 and generate Chinese / mixed Chinese-English narration. / 在 Mac 本地复刻你自己的声音，生成中文（及中英混合）配音。 |
 
 ## voice-clone
 
@@ -13,8 +13,15 @@ Open-source [Claude Code](https://claude.com/claude-code) skills. / 开源的 Cl
 **中文。** 让 Claude 带你走完本地声音复刻的全流程：装环境、指导录音、体检并登记样本、按句生成配音、多版本挑选、多音字纠音、AI 生成内容声明提醒。全部在本机运行，音频不上传。`references/troubleshooting.md` 里记录了在 Apple 芯片上真实踩过的坑。
 
 ### Install / 安装
+As a plugin marketplace (recommended) / 通过插件市场安装（推荐）:
+```
+/plugin marketplace add windgeek/skills
+/plugin install voice-clone@windgeek-skills
+```
+Or copy manually / 或手动复制:
 ```bash
-git clone <this-repo> && cp -R skills/voice-clone ~/.claude/skills/
+git clone https://github.com/windgeek/skills.git
+cp -R skills/skills/voice-clone ~/.claude/skills/
 ```
 Then tell Claude: "用我的声音配音" / "clone my voice". Claude will explain what needs downloading and ask before installing.
 

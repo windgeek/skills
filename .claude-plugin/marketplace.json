@@ -1,0 +1,17 @@
+{
+  "name": "windgeek-skills",
+  "owner": { "name": "windgeek" },
+  "metadata": {
+    "description": "Open-source Claude Code skills by windgeek",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "voice-clone",
+      "description": "Clone your own voice locally on a Mac with CosyVoice3 and generate Chinese narration. 在 Mac 本地复刻你自己的声音并生成中文配音。",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/voice-clone"]
+    }
+  ]
+}
