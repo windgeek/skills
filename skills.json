@@ -4,7 +4,7 @@
     "zh": "在 Mac 本地复刻你自己的声音，生成中文（及中英混合）配音。"
   },
   "code-cinema": {
-    "en": "Direct and render artistic music videos / short films in code (Canvas + WebGL + headless Chrome + ffmpeg); picks or invents a visual style from the content.",
-    "zh": "用代码导演并渲染有艺术性的 MV 与短片，按内容选择或原创画面风格。"
+    "en": "Direct and render artistic music videos / short films in code. Analyses your song, then invents a fitting visual style for it; the style library grows with every film.",
+    "zh": "用代码导演并渲染有艺术性的 MV 与短片：先分析歌，再原创贴合它的画面风格，风格库随每支片子增长。"
   }
 }

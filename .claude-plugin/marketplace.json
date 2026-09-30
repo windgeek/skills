@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "code-cinema",
-      "description": "Direct and render artistic music videos / short films in code (Canvas + WebGL + headless Chrome + ffmpeg); picks or invents a visual style from the content. 用代码导演并渲染有艺术性的 MV 与短片，按内容选择或原创画面风格。",
+      "description": "Direct and render artistic music videos / short films in code. Analyses your song, then invents a fitting visual style for it; the style library grows with every film. 用代码导演并渲染有艺术性的 MV 与短片：先分析歌，再原创贴合它的画面风格，风格库随每支片子增长。",
       "source": "./",
       "strict": false,
       "skills": [
