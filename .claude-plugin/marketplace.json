@@ -1,6 +1,8 @@
 {
   "name": "windgeek-skills",
-  "owner": { "name": "windgeek" },
+  "owner": {
+    "name": "windgeek"
+  },
   "metadata": {
     "description": "Open-source Agent Skills by windgeek",
     "version": "0.1.0"
@@ -11,7 +13,18 @@
       "description": "Clone your own voice locally on a Mac with CosyVoice3 and generate Chinese narration. 在 Mac 本地复刻你自己的声音并生成中文配音。",
       "source": "./",
       "strict": false,
-      "skills": ["./skills/voice-clone"]
+      "skills": [
+        "./skills/voice-clone"
+      ]
+    },
+    {
+      "name": "code-cinema",
+      "description": "Direct and render artistic music videos and short films entirely in code (Canvas/WebGL + headless Chrome + ffmpeg), with an original style library. 用代码导演并渲染有艺术性的 MV 和短片。",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/code-cinema"
+      ]
     }
   ]
 }

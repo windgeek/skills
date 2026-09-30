@@ -1,0 +1,72 @@
+---
+name: code-cinema
+description: 代码影像工作室：用代码（Canvas / WebGL 着色器 + headless Chrome + ffmpeg）导演并制作有艺术性的影片——给歌做 MV、歌词影像、概念短片、片头、动画短片、视觉化作品。先分析歌曲或故事的内容，再从自带的风格库（水的光学、纸扎夜游、JoJo 式摆姿漫画、EVA 式明朝体末日）里选择、混合，或者按“媒介即内容”原创一个新风格。也负责竖版切片、B 站 / 抖音的封面和文案。凡是用户想“给这首歌做 MV / 做个视频 / 做个短片 / 做动画 / 把歌词做成影像 / 做片头 / 做个有艺术感的片子 / 用某某风格做视频 / 做抖音竖版 / 写 B 站文案 / 做封面”，或者问有哪些风格可选，都应使用本 skill，即使没提“代码”。不用于剪辑已有视频素材，也不用于纯科普讲解视频（那种用 explainer-video）。
+---
+
+# Code Cinema · 代码影像工作室
+
+一支片子 = 一张剪辑表 + 一个 `render(t)`。画面是时间的纯函数，headless Chrome 逐帧截图，ffmpeg 合成。不用视频生成模型，不用素材库画面。
+
+判断一支片子的顺序：**声音与节奏 → 镜头 → 导演（意象、表演、情绪弧线）→ 画面好不好看**。好看的帧只是起点。
+
+## 工作流
+
+### 0. 准备
+- `bash <skill>/scripts/setup.sh`：第一次使用时安装环境（Python venv：librosa、mlx-whisper；Node：puppeteer-core）到 `~/.code-cinema/`。已装过会跳过。
+- `bash <skill>/scripts/new_project.sh <项目目录> [音频文件]`：拷贝引擎模板，链接依赖，放好音频。
+
+### 1. 吃透内容（不要跳过）
+- **歌**：向用户要**完整歌词原稿**（whisper 的文字只能参考，时间可以信）。然后：
+  - `analyze_audio.py <wav> <项目>/audio.js`：BPM、拍点、能量、低频、高频、onset，并打印段落能量。
+  - `align_lyrics.py <wav> <歌词.txt> <项目>/lyrics.json`：把原稿逐行对齐到 whisper 的逐字时间戳。输出每行的起止时间和置信度，低置信度的行要人工检查。
+- **故事/概念片**：把一句话需求扩成 logline。缺的事实问一次。
+- 写下：主题、情绪曲线、核心矛盾、**文化语境**（中式民俗？日式夏天？赛博？），以及歌里的两处安静和一处最高点。
+
+### 2. 选择呈现方式（本 skill 的关键）
+读 `references/choosing-style.md`，按内容选风格：
+1. 从内容里提炼 3–5 个**特征词**（题材、时代、文化、情绪、节奏、荒诞程度）。
+2. 在 `styles/INDEX.md` 里找 2–3 个候选；也可以**混合**两种（一个做主，一个只在某个段落出现），或者**原创**一个新风格（按 `references/style-template.md` 写一份新的 STYLE.md 存进 `styles/ours/`）。
+3. 对每个候选回答：**这个媒介能不能本身就是内容的一部分**？（纸人的歌 → 纸扎；水的歌 → 水的光学；记忆的歌 → 褪色的胶片）能的那个通常就是答案。
+4. 把选择和理由写进 TREATMENT.md，告诉用户。用户指定了风格就用用户的。
+
+### 3. 写 TREATMENT.md
+按 `references/director.md` 第四节：三个候选结构、logline、核心意象及它在每段的状态、**招牌时刻**放在哪里、段落表、镜头表（每个镜头**为什么**这样拍）、歌词怎么上屏。
+
+### 4. 证明画风
+用真实代码渲染 3 张风格帧，**最没把握的东西先测**（有角色时先做姿态测试表）。对照 STYLE.md 的“它不是什么”和“常见坑”自查，把风格帧发给用户看方向。
+
+### 5. 制作
+按 `references/technique.md`：
+- 引擎在 `engine/`：`engine.js`（时间轴、拍点吸附、音频特征、镜头表、歌词层、WebGL 后期）+ 你写的 `film.js`（场景、镜头表、歌词版式）。
+- 场景可以是 WebGL 片元着色器（光、水、玻璃、体积光），也可以是 Canvas 2D（平面、纸、线、字、角色），两者共用同一条后期管线。
+- 抽帧：`node render.mjs --stills 3,42,110` → `bash sheet.sh out.jpg 3 42 110`，**用 Read 工具逐格看**。
+
+### 6. 检查（交付前必做）
+按 `references/director.md` 第八节：总览图至少看两遍、转场中间帧、亮背景上的字、黑帧是否都是故意的、不是上一支片子的翻版。
+
+### 7. 渲染与交付
+- `node render.mjs --name <片名>_MV --grain 2`：并行渲染 → 颗粒在 ffmpeg 里加 → 混入原曲 → `build/<片名>_MV.mp4`（发布版）+ `build/<片名>_MV_master.mp4`（母版，交付后可删）。
+- 片头一行小字署名 + 片尾署名卡（署名写法问用户）。
+- 交付：成片、poster.jpg、TREATMENT.md、CREDITS。用 SendUserFile 发给用户，说清楚哪些检查过、哪些没检查过（**你听不到声音**，声画对位要请用户留意）。
+- 把这支片子学到的东西追加到 `references/lessons.md`。
+
+### 8. 发布（用户需要时）
+按 `references/publishing.md`：B 站封面（16:9 + 4:3）和文案、抖音竖版切片（`vertical.html`）、竖版封面（9:16 + 3:4）和文案（5 个标签）。交付后清理中间文件（静帧、拼图、母版）。
+
+## 原则
+- **意象，不是图解**。歌词说什么就画什么，是最常见的失败。
+- **剪辑跟着歌呼吸**。主歌少切，副歌炸，桥段给一口长气。
+- **媒介本身就是内容**。选风格时优先选“媒介和题材同构”的。
+- **字是设计的一部分**。歌词全部上屏（除非用户不要），版式由 STYLE.md 规定。
+- **同人题材只学语法**：原创角色，不画原作角色，不用原作标志、字体、专有名词。
+- 每一步都让用户能在关键节点改方向：风格选择、风格帧、成片。
+
+## 目录
+- `references/director.md`：导演法（从实际制作中总结）
+- `references/choosing-style.md`：按内容选风格、可以原创的方向
+- `references/style-template.md`：写新风格的结构
+- `references/technique.md`：技术管线与坑
+- `references/publishing.md`：B 站 / 抖音的封面、文案、竖版切片、署名
+- `references/lessons.md`：每支片子的经验（持续追加）
+- `styles/INDEX.md`：风格库；`styles/ours/<风格>/STYLE.md`
+- `engine/`：项目模板（engine.js、render.mjs、vertical.js）；`scripts/`：安装、新建项目、音频分析、歌词对齐

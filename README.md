@@ -8,6 +8,7 @@ Each skill is a self-contained folder under [`skills/`](skills/). Any agent that
 | Skill | What it does |
 |---|---|
 | [`voice-clone`](skills/voice-clone/) | Clone your own voice locally on a Mac (Apple Silicon) with CosyVoice3 and generate Chinese / mixed Chinese-English narration. / 在 Mac 本地复刻你自己的声音，生成中文（及中英混合）配音。 |
+| [`code-cinema`](skills/code-cinema/) | Direct and render artistic music videos / short films in code (Canvas + WebGL + headless Chrome + ffmpeg); picks or invents a visual style from the content. / 用代码导演并渲染有艺术性的 MV 与短片，按内容选择或原创画面风格。 |
 
 ## voice-clone
 
@@ -43,3 +44,13 @@ macOS on Apple Silicon, conda (miniconda), git, ~15 GB free disk.
 
 ## License
 MIT — see [LICENSE](LICENSE). Third-party components keep their own licenses.
+
+## code-cinema
+
+**English.** A film is an edit list plus one `render(t)` function: frames are pure functions of time, rendered by headless Chrome and muxed by ffmpeg — no video-generation models, no stock footage. The skill analyses your song (BPM, beats, energy) or story, aligns your lyrics to word timestamps, then helps you choose, blend or invent a visual style ("the medium is the content"). It ships an original style library (water optics, paper-effigy night ride, manga pose, Mincho apocalypse), a director's method, lessons learned, and B站/Douyin publishing notes.
+
+**中文。** 一支片子 = 一张剪辑表 + 一个 `render(t)`：画面是时间的纯函数，headless Chrome 逐帧渲染、ffmpeg 合成，不用视频生成模型和素材库。它会分析歌曲（BPM、拍点、能量），把你的歌词对齐到逐字时间戳，再帮你选择、混合或原创画面风格（“媒介即内容”）。自带原创风格库、导演方法、制作经验和 B 站 / 抖音发布笔记。
+
+**Requirements / 环境：** macOS (the lyric-alignment step uses `mlx-whisper`, Apple Silicon), Google Chrome (or set `CHROME`), ffmpeg, Node.js, Python 3. `scripts/setup.sh` installs librosa, mlx-whisper and puppeteer-core into `~/.code-cinema/` (downloads from PyPI/npm; ask before running).
+
+Style notes that mention existing franchises (manga / anime) only borrow visual grammar; use original characters and assets. / 提到既有作品的风格只借视觉语法，请使用原创角色与素材。

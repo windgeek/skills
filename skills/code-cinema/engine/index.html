@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Code Cinema 预览</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #000; }
+  canvas { width: 100vw; height: 100vh; object-fit: contain; display: block; cursor: pointer; }
+  #ui { position: fixed; bottom: 10px; left: 0; right: 0; text-align: center; color: #777; font: 13px "PingFang SC", sans-serif; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="ui">点击播放 / 暂停 · 地址后加 ?t=秒数 跳转</div>
+<script src="audio.js"></script>
+<script src="film.js"></script>
+<script src="engine.js"></script>
+<script>
+  if (!location.search.includes('render')) {
+    const audio = new Audio(FILM.audio);
+    audio.currentTime = Number(new URLSearchParams(location.search).get('t') || 0);
+    const loop = () => { render(audio.currentTime); requestAnimationFrame(loop); };
+    READY.then(loop);
+    document.getElementById('c').onclick = () => { audio.paused ? audio.play() : audio.pause(); document.getElementById('ui').style.opacity = 0; };
+  }
+</script>
+</body>
+</html>
