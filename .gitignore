@@ -6,3 +6,4 @@ voices/
 models/
 *.wav
 *.m4a
+.privacy-terms

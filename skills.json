@@ -1,0 +1,10 @@
+{
+  "voice-clone": {
+    "en": "Clone your own voice locally on a Mac (Apple Silicon) with CosyVoice3 and generate Chinese / mixed Chinese-English narration.",
+    "zh": "在 Mac 本地复刻你自己的声音，生成中文（及中英混合）配音。"
+  },
+  "code-cinema": {
+    "en": "Direct and render artistic music videos / short films in code (Canvas + WebGL + headless Chrome + ffmpeg); picks or invents a visual style from the content.",
+    "zh": "用代码导演并渲染有艺术性的 MV 与短片，按内容选择或原创画面风格。"
+  }
+}

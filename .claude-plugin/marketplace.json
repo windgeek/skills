@@ -9,21 +9,21 @@
   },
   "plugins": [
     {
-      "name": "voice-clone",
-      "description": "Clone your own voice locally on a Mac with CosyVoice3 and generate Chinese narration. 在 Mac 本地复刻你自己的声音并生成中文配音。",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./skills/voice-clone"
-      ]
-    },
-    {
       "name": "code-cinema",
-      "description": "Direct and render artistic music videos and short films entirely in code (Canvas/WebGL + headless Chrome + ffmpeg), with an original style library. 用代码导演并渲染有艺术性的 MV 和短片。",
+      "description": "Direct and render artistic music videos / short films in code (Canvas + WebGL + headless Chrome + ffmpeg); picks or invents a visual style from the content. 用代码导演并渲染有艺术性的 MV 与短片，按内容选择或原创画面风格。",
       "source": "./",
       "strict": false,
       "skills": [
         "./skills/code-cinema"
+      ]
+    },
+    {
+      "name": "voice-clone",
+      "description": "Clone your own voice locally on a Mac (Apple Silicon) with CosyVoice3 and generate Chinese / mixed Chinese-English narration. 在 Mac 本地复刻你自己的声音，生成中文（及中英混合）配音。",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/voice-clone"
       ]
     }
   ]
