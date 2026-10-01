@@ -8,7 +8,9 @@
       → 默认按句生成 seg_<id>_01.wav… 并写 manifest.json（每句的字幕文字与结尾类型，供 build_audio 精确排时）
       → --no-split 则整段生成 seg_<id>.wav
   文案中的 ｜ 是停顿标记（不念、不上字幕），按句模式下会成为句间留白
-  常用: --takes 3（同一句多版本挑选）  --only s3,s7  --speed 0.95  --llm base  --device cpu
+  常用: --takes 3（同一句多版本挑选）  --only s3,s7（整段）或 --only s16:2（只重配 s16 的第 2 句）
+        --speed 0.95  --llm base  --device cpu
+  种子固定：同一文本重配结果不变；某句念坏了要改措辞或用 --takes 换版本
 
 文本里可用的控制：
   [breath] 呼吸声；拼音纠音，如 “处[ch][ǔ]死”（每个字拼成 [声母][韵母+声调]）
@@ -116,7 +118,10 @@ def main():
         jobs = [(f"{i + 1:03d}", l.replace(BEAT, ""), args.instruct) for i, l in enumerate(lines)]
         out_dir = Path(args.out)
     else:
-        only = set(filter(None, args.only.split(",")))
+        only = {}  # 段 id → 要重配的句号集合（None 表示整段）
+        for item in filter(None, args.only.split(",")):
+            sid, _, k = item.partition(":")
+            only[sid] = None if not k or only.get(sid, set()) is None else only.get(sid, set()) | {int(k)}
         segs = [s for s in json.loads(Path(args.segments).read_text())["segments"]
                 if s.get("text") and (not only or s["id"] in only)]
         out_dir = Path(args.out)
@@ -133,7 +138,9 @@ def main():
                 manifest[s["id"]] = [{"file": f"seg_{s['id']}_{i + 1:02d}.wav", "text": t.replace(BEAT, ""), "end": k,
                                       **({"beats": beat_positions(t)} if BEAT in t else {})}
                                      for i, (t, k) in enumerate(shown)]
-                jobs += [(f"seg_{s['id']}_{i + 1:02d}", t.replace(BEAT, ""), s.get("instruct", args.instruct)) for i, (t, _) in enumerate(spoken)]
+                pick = only.get(s["id"])
+                jobs += [(f"seg_{s['id']}_{i + 1:02d}", t.replace(BEAT, ""), s.get("instruct", args.instruct))
+                         for i, (t, _) in enumerate(spoken) if not pick or i + 1 in pick]
     out_dir.mkdir(parents=True, exist_ok=True)
     if manifest is not None:
         # 先写清单：即使中途中断，已生成的句子也能被识别
