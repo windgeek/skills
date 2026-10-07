@@ -29,6 +29,7 @@ Then just say what you want, e.g. "narrate this script in my voice". The agent e
 Clones your own voice locally (Apple Silicon Mac, CosyVoice3). Everything runs on your machine; no audio is uploaded.
 
 - 仓库不含任何模型；首次使用时会在你同意后下载约 10 GB（代码、模型、依赖）。Nothing is bundled; ~10 GB is downloaded on first use, after your consent.
+- 配完自动“听写自查”：用 macOS 26 自带的离线语音识别把每句配音转成文字，和台词按拼音比对，标出可能读错、漏字的句子，缩小你需要重点试听的范围。After generation, an offline listen-back check (macOS 26 speech recognition) compares each line with the script by pinyin and flags likely misreadings or dropped words for you to re-listen.
 - 只复刻本人或已获明确授权的声音；发布时按平台和当地法规标注“AI 生成内容”。Only clone your own voice, or one you have explicit permission to use, and label published audio as AI-generated.
 
 ## code-cinema
