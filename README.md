@@ -39,6 +39,9 @@ Makes artistic music videos and short films in code, without video-generation mo
 **它会进化。** 每次做片子，它先分析歌的内容，再按“媒介即内容”为这首歌**原创一个画面风格**，写成风格规格存进风格库；已有风格只在真的贴合时才复用，连续两支片子不会用同一个风格。所以你用得越多，风格库越丰富，自带的 4 个风格只是起点。
 **It evolves.** For every film it analyses the song, then invents a fitting visual style ("the medium is the content") and saves it to a growing style library. Existing styles are reused only when they truly fit, and two films in a row never share a style. The 4 bundled styles are just a starting point.
 
+**交付前自动审片。** 自带框景检查（`framecheck.mjs`）：硬切处画面是否落在拍点上、不在拍点上的闪烁、叠字、字出画、长时间静止、并行渲染是否逐帧一致，问题帧会标出红框拼成一张图。
+**Automatic pre-delivery check.** `framecheck.mjs` flags cuts whose visual change misses the beat, stray flicker frames, overlapping or clipped text, long static stretches and non-deterministic frames, and outputs a contact sheet with the problem areas boxed in red.
+
 需要：macOS（Apple 芯片）、Chrome、ffmpeg、Node.js、Python 3。Requires: Apple-silicon macOS, Chrome, ffmpeg, Node.js, Python 3.
 
 ## License

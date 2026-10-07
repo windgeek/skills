@@ -43,7 +43,7 @@ description: 代码影像工作室：用代码（Canvas / WebGL 着色器 + head
 - 抽帧：`node render.mjs --stills 3,42,110` → `bash sheet.sh out.jpg 3 42 110`，**用你的看图能力逐格看**。
 
 ### 6. 检查（交付前必做）
-按 `references/director.md` 第八节：总览图至少看两遍、转场中间帧、亮背景上的字、黑帧是否都是故意的、不是上一支片子的翻版。
+先跑 `node framecheck.mjs`（框景检查：卡点、跳变、叠字、出画、静止、确定性，一支 4 分钟的片子约 30 秒；老项目用 `node <skill>/engine/framecheck.mjs <项目>`），逐条看 `build/qa/framecheck.jpg` 确认。再按 `references/director.md` 第八节：总览图至少看两遍、转场中间帧、亮背景上的字、黑帧是否都是故意的、不是上一支片子的翻版；最后请一个没参与制作的 agent（或子任务）**独立审片**。
 
 ### 7. 渲染与交付
 - `node render.mjs --name <片名>_MV --grain 2`：并行渲染 → 颗粒在 ffmpeg 里加 → 混入原曲 → `build/<片名>_MV.mp4`（发布版）+ `build/<片名>_MV_master.mp4`（母版，交付后可删）。
@@ -52,7 +52,7 @@ description: 代码影像工作室：用代码（Canvas / WebGL 着色器 + head
 - 把这支片子学到的东西追加到 `references/lessons.md`。
 
 ### 8. 发布（用户需要时）
-按 `references/publishing.md`：B 站封面（16:9 + 4:3）和文案、抖音竖版切片（`vertical.html`）、竖版封面（9:16 + 3:4）和文案（5 个标签）。交付后清理中间文件（静帧、拼图、母版）。
+按 `references/publishing.md`：B 站封面（16:9 + 4:3）和文案、抖音竖版（`vertical.html`，**默认完整版、和横版内容一致**；用户要求时才做高潮版切片）、竖版封面（9:16 + 3:4）和文案（5 个标签）。交付后清理中间文件（静帧、拼图、母版）。
 
 ## 原则
 - **意象，不是图解**。歌词说什么就画什么，是最常见的失败。
