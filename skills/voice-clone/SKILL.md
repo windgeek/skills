@@ -25,6 +25,8 @@ description: 在 Mac 本地用 CosyVoice3 复刻用户本人的声音并生成�
    - 默认 `--llm rl --device mps`：RL 版错字更少，用户试听也更喜欢；MPS 比 CPU 快约 20%。
    - 耗时大约是音频时长的 2.5–3 倍（3 分钟台词 ≈ 9 分钟），整期要放后台跑。
    - 看输出里的“字/s”：⚠️ 表示语速异常，往往是吞字或卡住，重生成那一句。
+   - 配音前跑**文本自查** `python3 scripts/text_check.py <segments.json>`：列出可能读得生硬或读断的标点和短句，逐条读出声确认（规则见 text-control.md“断句”）。
+   - 配完跑**断句自查** `python3 scripts/pause_check.py build/voice/`，报出停错位置、结尾被截断的句子；用 `scripts/retake.py` 给这些句子另出几个版本、自动挑一版换进去。
    - 配完跑一次**听写自查** `python3 scripts/listen_check.py build/voice/`：本机离线识别每句配音、和台词按拼音比对，把 ⚠️ 的句子连同编号列给用户重点听（macOS 26+；细节和局限见 text-control.md）。
 6. **精修**：只重做有问题的段或句（`--only s3,s7`；`--only s16:2` 只重配一句），需要挑版本时加 `--takes 3`。**种子是固定的，同一文本重配结果不变**：念坏的句子要改措辞或换 take，原样重跑没用。控制手段见 [references/text-control.md](references/text-control.md)，包括多音字拼音、`[breath]`、语气指令、语速。
 7. **后期与交付**：人声链（去嗡声、轻压缩、提温暖和清晰度）的 ffmpeg 参数见 text-control.md 末尾。交付给用户试听时，统一响度到 -16 LUFS 左右。
