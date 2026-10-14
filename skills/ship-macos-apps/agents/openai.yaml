@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ship macOS Apps"
+  short_description: "Safe Debug, TestFlight, permissions, and release workflow"
+  default_prompt: "Use $ship-macos-apps to audit and guide this macOS app from local development through TestFlight and App Store release."

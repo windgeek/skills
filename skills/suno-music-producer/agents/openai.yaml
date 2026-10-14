@@ -1,0 +1,4 @@
+interface:
+  display_name: "Suno 音乐制作人"
+  short_description: "直接输出标准Suno歌曲所需的Title、Styles、参数与完整Lyrics"
+  default_prompt: "使用 $suno-music-producer 直接输出一首不受平台公式限制的标准 Suno 原创歌曲。"

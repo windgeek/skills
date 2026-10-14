@@ -14,5 +14,21 @@
   "novel": {
     "en": "Write long web serials (100k+ characters) chapter by chapter without losing the thread: layered context loading, continuity log, character state, foreshadowing tracker, beat sheet, and a post-chapter checklist. Tuned for Fanqie Novel.",
     "zh": "长篇网文（十万字以上）逐章续写不丢线：分层加载上下文、连贯性日志、角色状态、伏笔追踪、节拍表和写后校验清单；按番茄小说平台的规则调校。"
+  },
+  "apple-app-localization": {
+    "en": "Localize Apple-platform apps with Xcode String Catalogs: migrate legacy .strings, plurals, generated symbols, translate and review against the OS's own terminology, locale QA.",
+    "zh": "用 Xcode String Catalog 给苹果平台 app 做国际化与翻译：迁移旧 .strings、复数、生成符号，按系统自身译名翻译并复核，多语言验收。"
+  },
+  "ship-macos-apps": {
+    "en": "Develop and ship native macOS apps safely with an AI coding agent: Debug/Release identity separation, signing, TCC permissions, menu bar items, TestFlight and App Review gates.",
+    "zh": "和 AI 编程 agent 一起安全地开发、发布 macOS 原生 app：Debug/Release 身份分离、签名、隐私权限、菜单栏图标、TestFlight 与上架检查。"
+  },
+  "suno-music-producer": {
+    "en": "Write and revise original songs for Suno, outputting ready-to-paste Title, Styles, parameters and Lyrics.",
+    "zh": "为 Suno 创作和修改原创歌曲，直接输出可粘贴的 Title、Styles、参数和 Lyrics。"
+  },
+  "wechat-article": {
+    "en": "Plan, research and write WeChat Official Account articles that read like a person wrote them: topic card, evidence, titles, cutting, quality gates; optional draft upload.",
+    "zh": "策划、研究、撰写微信公众号文章，去掉 AI 腔：选题卡、证据、标题与首屏、删稿、发布前质量门；可选推送到草稿箱。"
   }
 }

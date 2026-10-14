@@ -7,3 +7,4 @@ models/
 *.wav
 *.m4a
 .privacy-terms
+.env
