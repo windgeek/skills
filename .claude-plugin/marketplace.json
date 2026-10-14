@@ -28,7 +28,7 @@
     },
     {
       "name": "novel",
-      "description": "Write long web serials (100k+ characters) chapter by chapter without losing the thread: layered context loading, continuity log, character state, foreshadowing tracker, beat sheet, and a post-chapter checklist. Tuned for Fanqie Novel. 长篇网文（十万字以上）逐章续写不丢线：分层加载上下文、连贯性日志、角色状态、伏笔追踪、节拍表和写后校验清单；按番茄小说平台的规则调校。",
+      "description": "Write web serials at million-character scale, chapter by chapter, without losing the thread: layered context loading, continuity log, character state, foreshadowing tracker, beat sheet, and a post-chapter checklist. Tuned for Fanqie Novel. 百万字级长篇网文逐章续写不丢线：分层加载上下文、连贯性日志、角色状态、伏笔追踪、节拍表和写后校验清单；按番茄小说平台的规则调校。",
       "source": "./",
       "strict": false,
       "skills": [

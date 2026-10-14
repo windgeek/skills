@@ -12,8 +12,8 @@
     "zh": "每次改完 skill 自动做一遍精炼：新规则归到对的主题、合并重复、消除前后冲突、控制篇幅；附只读体检脚本和可选的提醒钩子。"
   },
   "novel": {
-    "en": "Write long web serials (100k+ characters) chapter by chapter without losing the thread: layered context loading, continuity log, character state, foreshadowing tracker, beat sheet, and a post-chapter checklist. Tuned for Fanqie Novel.",
-    "zh": "长篇网文（十万字以上）逐章续写不丢线：分层加载上下文、连贯性日志、角色状态、伏笔追踪、节拍表和写后校验清单；按番茄小说平台的规则调校。"
+    "en": "Write web serials at million-character scale, chapter by chapter, without losing the thread: layered context loading, continuity log, character state, foreshadowing tracker, beat sheet, and a post-chapter checklist. Tuned for Fanqie Novel.",
+    "zh": "百万字级长篇网文逐章续写不丢线：分层加载上下文、连贯性日志、角色状态、伏笔追踪、节拍表和写后校验清单；按番茄小说平台的规则调校。"
   },
   "apple-app-localization": {
     "en": "Localize Apple-platform apps with Xcode String Catalogs: migrate legacy .strings, plurals, generated symbols, translate and review against the OS's own terminology, locale QA.",
