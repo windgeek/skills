@@ -20,6 +20,7 @@ Then just say what you want, e.g. "narrate this script in my voice". The agent e
 | Skill | What it does |
 |---|---|
 | [`apple-app-localization`](skills/apple-app-localization/) | Localize Apple-platform apps with Xcode String Catalogs: migrate legacy .strings, plurals, generated symbols, translate and review against the OS's own terminology, locale QA. / 用 Xcode String Catalog 给苹果平台 app 做国际化与翻译：迁移旧 .strings、复数、生成符号，按系统自身译名翻译并复核，多语言验收。 |
+| [`chinese-human-editor`](skills/chinese-human-editor/) | A final de-AI-voice pass for finished Chinese writing: strip false contrasts, fake aphorisms, tidy parallelism, abstract filler and empty uplift, then check with a script that numbers, quotes, names and links did not drift. / 中文成稿的去 AI 腔终审：清除假转折、假金句、整齐排比、抽象词和万能升华，再用脚本核对数字、引语、专名、链接没有漂移。 |
 | [`code-cinema`](skills/code-cinema/) | Direct and render artistic music videos / short films in code. Analyses your song, then invents a fitting visual style for it; the style library grows with every film. / 用代码导演并渲染有艺术性的 MV 与短片：先分析歌，再原创贴合它的画面风格，风格库随每支片子增长。 |
 | [`novel`](skills/novel/) | Write web serials at million-character scale, chapter by chapter, without losing the thread: layered context loading, continuity log, character state, foreshadowing tracker, beat sheet, and a post-chapter checklist. Tuned for Fanqie Novel. / 百万字级长篇网文逐章续写不丢线：分层加载上下文、连贯性日志、角色状态、伏笔追踪、节拍表和写后校验清单；按番茄小说平台的规则调校。 |
 | [`ship-macos-apps`](skills/ship-macos-apps/) | Develop and ship native macOS apps safely with an AI coding agent: Debug/Release identity separation, signing, TCC permissions, menu bar items, TestFlight and App Review gates. / 和 AI 编程 agent 一起安全地开发、发布 macOS 原生 app：Debug/Release 身份分离、签名、隐私权限、菜单栏图标、TestFlight 与上架检查。 |
@@ -110,6 +111,15 @@ Typesets a Markdown article for the WeChat Official Account editor in one quiet 
 
 - 链接改成角标 [n]，网址列在正文之后（公众号正文外链点不开）。Links become footnote numbers with URLs listed after the body, since in-body links don't work in WeChat.
 - 附合规校验（会被公众号过滤的写法、半角标点）和预览页：手机宽度、可切深色模式、一键复制正文。Includes a compliance checker and a phone-width preview with a dark-mode toggle and a one-click copy button.
+
+需要：Python 3。Requires: Python 3.
+
+## chinese-human-editor
+
+写完的中文稿，常常一眼就看得出是模型写的：“不是……而是……”、对称的金句、三连排比、“底层逻辑”、结尾突然谈时代。这个 skill 在成稿之后、发布之前，让 agent 换成编辑的身份单独过一遍：先用脚本扫出线索（叙述和对话分开计数），逐条判断后修改，最后用另一个脚本比对改稿前后的数字、引语、书名、链接和英文专名，确认去 AI 腔的时候没有顺手改掉事实。公众号、评论、文学小说、网文按体裁调整力度。
+Finished Chinese drafts often read as machine-written: "not X but Y", symmetrical aphorisms, triple parallels, "underlying logic", an ending that suddenly turns to the times. After drafting and before publishing, this skill has the agent make one separate pass as an editor: a script flags candidates (narration and dialogue counted apart), each is judged in context, and a second script compares numbers, quotes, titles, links and names before and after, so de-AI editing never quietly changes facts. Strength adapts to articles, literary fiction and web serials.
+
+`wechat-article` 和 `novel` 都会调用它。Used by `wechat-article` and `novel`.
 
 需要：Python 3。Requires: Python 3.
 

@@ -1,0 +1,6 @@
+interface:
+  display_name: "中文去 AI 腔终审"
+  short_description: "成稿后单独一遍去 AI 腔，并核对事实不漂移"
+  default_prompt: "使用 $chinese-human-editor 对这篇已完成的中文稿件做去 AI 腔终审。"
+policy:
+  allow_implicit_invocation: true

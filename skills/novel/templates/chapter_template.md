@@ -13,7 +13,7 @@ status: draft                   # draft / review / final
 ---
 
 <!--
-写作检查清单（写完后对照；完整校验见 commands/write.md 的 A–K）：
+写作检查清单（写完后对照；完整校验见 commands/write.md 的 A–L）：
 
 内容
 - [ ] 开头有吸引力（动作/对话/悬念开头，不要大段描写开头）

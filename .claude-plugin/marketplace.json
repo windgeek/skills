@@ -18,6 +18,15 @@
       ]
     },
     {
+      "name": "chinese-human-editor",
+      "description": "A final de-AI-voice pass for finished Chinese writing: strip false contrasts, fake aphorisms, tidy parallelism, abstract filler and empty uplift, then check with a script that numbers, quotes, names and links did not drift. 中文成稿的去 AI 腔终审：清除假转折、假金句、整齐排比、抽象词和万能升华，再用脚本核对数字、引语、专名、链接没有漂移。",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/chinese-human-editor"
+      ]
+    },
+    {
       "name": "code-cinema",
       "description": "Direct and render artistic music videos / short films in code. Analyses your song, then invents a fitting visual style for it; the style library grows with every film. 用代码导演并渲染有艺术性的 MV 与短片：先分析歌，再原创贴合它的画面风格，风格库随每支片子增长。",
       "source": "./",
