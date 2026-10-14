@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Publish a WeChat article draft from gzh-design HTML.
+"""Publish a WeChat article draft from wechat-typeset HTML.
 
 This script intentionally does not format Markdown into WeChat HTML. The
-article body must come from the gzh-design skill as a clean, validated
+article body must come from the wechat-typeset skill as a clean, validated
 <section>...</section> fragment.
 
 Usage:
-  python3 publish_to_wechat.py article.md --content-html article-gzh_排版_红白色系(red-white).html
-  python3 publish_to_wechat.py article.md --preview --content-html article-gzh_排版_红白色系(red-white).html
+  python3 publish_to_wechat.py article.md --content-html article-gzh-排版.html
+  python3 publish_to_wechat.py article.md --preview --content-html article-gzh-排版.html
   python3 publish_to_wechat.py article.md --cover cover.jpg --cover-no-title
   python3 publish_to_wechat.py --publish-status <publish_id>
 """
@@ -33,9 +33,9 @@ from urllib.request import Request, urlopen
 
 
 SKILL_ROOT = Path(__file__).resolve().parent.parent
-GZH_SKILL_ROOT = Path(os.environ.get("GZH_DESIGN_HOME", SKILL_ROOT.parent / "gzh-design-skill")).expanduser()
-GZH_VALIDATE = GZH_SKILL_ROOT / "scripts" / "validate_gzh_html.py"
-GZH_WRAP_PREVIEW = GZH_SKILL_ROOT / "scripts" / "wrap_preview.py"
+TYPESET_ROOT = Path(os.environ.get("WECHAT_TYPESET_HOME", SKILL_ROOT.parent / "wechat-typeset")).expanduser()
+GZH_VALIDATE = TYPESET_ROOT / "scripts" / "check_html.py"
+GZH_WRAP_PREVIEW = TYPESET_ROOT / "scripts" / "preview.py"
 
 
 def load_env_file(path: Path) -> None:
@@ -277,7 +277,7 @@ def find_gzh_html(md_path: str, explicit_html: str | None = None) -> Path:
         if not path.is_absolute():
             path = Path.cwd() / path
         if not path.exists():
-            raise FileNotFoundError(f"找不到 gzh-design HTML: {path}")
+            raise FileNotFoundError(f"找不到排版 HTML: {path}")
         return path
 
     md = Path(md_path)
@@ -291,16 +291,16 @@ def find_gzh_html(md_path: str, explicit_html: str | None = None) -> Path:
 
     candidates: list[Path] = []
     for item in dict.fromkeys(stems):
-        candidates.extend(parent.glob(f"{item}_排版_*.html"))
+        candidates.extend(parent.glob(f"{item}-排版.html"))
 
     candidates = [
         path
         for path in candidates
-        if "_预览" not in path.stem and path.is_file()
+        if path.is_file()
     ]
     if not candidates:
         raise FileNotFoundError(
-            "未找到 gzh-design 生成的干净正文 HTML。请先用 gzh-design 排版，"
+            "未找到 wechat-typeset 生成的正文 HTML（*-排版.html）。请先用 wechat-typeset 排版，"
             "或通过 --content-html 指定 HTML 文件。"
         )
     candidates.sort(key=lambda path: path.stat().st_mtime, reverse=True)
@@ -309,7 +309,7 @@ def find_gzh_html(md_path: str, explicit_html: str | None = None) -> Path:
 
 def validate_gzh_html(html_path: Path, allow_warnings: bool = False) -> str:
     if not GZH_VALIDATE.exists():
-        raise FileNotFoundError(f"找不到 gzh-design 校验脚本: {GZH_VALIDATE}")
+        raise FileNotFoundError(f"找不到 wechat-typeset 校验脚本: {GZH_VALIDATE}")
     result = subprocess.run(
         [sys.executable, str(GZH_VALIDATE), str(html_path)],
         text=True,
@@ -319,10 +319,11 @@ def validate_gzh_html(html_path: Path, allow_warnings: bool = False) -> str:
     output = (result.stdout or "") + (result.stderr or "")
     if result.returncode != 0:
         raise RuntimeError(output.strip())
-    if not allow_warnings and "WARNING ×" in output:
+    warn = re.search(r"WARNING × (\d+)", output)
+    if not allow_warnings and warn and int(warn.group(1)) > 0:
         raise RuntimeError(
             output.strip()
-            + "\n\n校验仍有 WARNING。请先按 gzh-design 要求修到 0，"
+            + "\n\n校验仍有 WARNING。请先按 wechat-typeset 要求修到 0，"
             "或临时加 --allow-gzh-warnings。"
         )
     return output.strip()
@@ -330,7 +331,7 @@ def validate_gzh_html(html_path: Path, allow_warnings: bool = False) -> str:
 
 def wrap_gzh_preview(html_path: Path) -> Path:
     if not GZH_WRAP_PREVIEW.exists():
-        raise FileNotFoundError(f"找不到 gzh-design 预览脚本: {GZH_WRAP_PREVIEW}")
+        raise FileNotFoundError(f"找不到 wechat-typeset 预览脚本: {GZH_WRAP_PREVIEW}")
     result = subprocess.run(
         [sys.executable, str(GZH_WRAP_PREVIEW), str(html_path)],
         text=True,
@@ -340,7 +341,8 @@ def wrap_gzh_preview(html_path: Path) -> Path:
     output = (result.stdout or "") + (result.stderr or "")
     if result.returncode != 0:
         raise RuntimeError(output.strip())
-    preview = html_path.with_name(f"{html_path.stem}_预览.html")
+    stem = html_path.stem[:-3] if html_path.stem.endswith("-排版") else html_path.stem
+    preview = html_path.with_name(f"{stem}-预览.html")
     return preview
 
 
@@ -534,7 +536,7 @@ def publish(
     article = parse_article_md(md_path)
     html_path = find_gzh_html(md_path, content_html)
     print(f"文章标题: {article['title']}")
-    print(f"使用 gzh-design HTML: {html_path}")
+    print(f"使用排版 HTML: {html_path}")
 
     validation = validate_gzh_html(html_path, allow_warnings=allow_gzh_warnings)
     print(validation)
@@ -586,23 +588,23 @@ def publish(
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="从 gzh-design HTML 创建微信公众号草稿。",
+        description="从 wechat-typeset 排好的 HTML 创建微信公众号草稿。",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=textwrap.dedent(
             """\
             注意:
-              本脚本不做 Markdown 排版。正文 HTML 必须先由 gzh-design 生成并通过校验。
+              本脚本不做 Markdown 排版。正文 HTML 必须先由 wechat-typeset 生成并通过校验。
               如果不传 --content-html，脚本会在 Markdown 同目录查找 *_排版_*.html。
             """
         ),
     )
     parser.add_argument("markdown", nargs="?", help="文章母稿或 gzh 输入稿 Markdown")
-    parser.add_argument("--content-html", help="gzh-design 生成的干净正文 HTML")
-    parser.add_argument("--preview", action="store_true", help="只生成 gzh-design 预览页，不发布")
+    parser.add_argument("--content-html", help="wechat-typeset 生成的 *-排版.html")
+    parser.add_argument("--preview", action="store_true", help="只生成预览页，不发布")
     parser.add_argument("--cover", help="封面图路径")
     parser.add_argument("--cover-no-title", action="store_true", help="封面图不再叠加标题")
     parser.add_argument("--publish", action="store_true", help="创建草稿后直接提交发布")
-    parser.add_argument("--allow-gzh-warnings", action="store_true", help="允许 gzh 校验 WARNING")
+    parser.add_argument("--allow-gzh-warnings", action="store_true", help="允许校验 WARNING")
     parser.add_argument("--author", default="", help="公众号作者名，默认读取 WECHAT_AUTHOR")
     parser.add_argument("--digest", help="公众号摘要，默认从 Markdown 正文提取")
     parser.add_argument("--publish-status", help="查询 publish_id 状态")
@@ -623,7 +625,7 @@ def main() -> None:
             return
 
         if args.with_images or args.no_images:
-            print("提示: --with-images/--no-images 已弃用。正文图片请在 Markdown 和 gzh-design HTML 中处理。")
+            print("提示: --with-images/--no-images 已弃用。正文图片请在 Markdown 里处理，由 wechat-typeset 排进 HTML。")
 
         if not args.markdown:
             parser.error("缺少 Markdown 文件路径")

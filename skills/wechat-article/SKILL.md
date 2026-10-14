@@ -1,6 +1,6 @@
 ---
 name: wechat-article
-description: 策划、研究、撰写和重写高完成度微信公众号文章，并生成可交给 gzh-design 的 Markdown 母稿。用于公众号选题、热点解读、科普与技术解释、观点稿、深度稿、系列策划、标题与开篇优化、去除 AI 模板腔、增强文学性与趣味性、成稿精简、事实核查、保存稿件，以及在用户明确授权后发布到公众号草稿箱。
+description: 策划、研究、撰写和重写高完成度微信公众号文章，并生成可交给 wechat-typeset 排版的 Markdown 母稿。用于公众号选题、热点解读、科普与技术解释、观点稿、深度稿、系列策划、标题与开篇优化、去除 AI 模板腔、增强文学性与趣味性、成稿精简、事实核查、保存稿件，以及在用户明确授权后发布到公众号草稿箱。
 ---
 
 # 微信公众号文章写作
@@ -10,7 +10,7 @@ description: 策划、研究、撰写和重写高完成度微信公众号文章�
 ## 职责边界
 
 - 负责选题、研究、事实、标题、结构、正文、删稿、配图策划和发布衔接。
-- 把正文排版、主题 HTML、预览和粘贴合规交给 `gzh-design`（第三方 skill，[isjiamu/gzh-design-skill](https://github.com/isjiamu/gzh-design-skill)，需另行安装）；不要手写公众号 HTML。
+- 把正文排版、预览和粘贴合规交给本仓库的 `wechat-typeset`；不要手写公众号 HTML。
 - 只有用户明确说“发布”“推送草稿箱”等才创建草稿；写完、排版不等于授权发布。
 
 ## 不可妥协
@@ -173,13 +173,13 @@ description: 策划、研究、撰写和重写高完成度微信公众号文章�
 `*-gzh.md` 规则：
 
 - 只保留一个 `#`；主章节用 `##`，子章节用 `###`。
-- 不在标题中手写 `01/02`；让 `gzh-design` 按类型处理。
+- 不在标题中手写 `01/02`；章节编号由 `wechat-typeset` 按文章类型决定。
 - 不放标题备选、选题卡、写作说明、系列规划等过程内容。
 - 不写内联 CSS 或公众号 HTML。
 - 图片使用相对路径：`![具体说明](_images/topic/image.png)`。
 - 代码、命令和 Prompt 使用围栏代码块。
 
-如果用户只要求文案或母稿，可以到此结束；如果要求完整公众号成品或排版，继续读取并使用 `gzh-design`。
+如果用户只要求文案或母稿，可以到此结束；如果要求完整公众号成品或排版，继续读取并使用 `wechat-typeset`。
 
 ## 配图与封面
 
@@ -191,14 +191,14 @@ description: 策划、研究、撰写和重写高完成度微信公众号文章�
 
 ## 排版与发布
 
-排版必须使用 `gzh-design` 的组件库和校验脚本，交付干净正文 HTML 与预览页。不要复用旧 HTML 或手写样式。
+排版必须使用 `wechat-typeset` 的脚本（排版、校验、预览），交付正文 HTML 与预览页。不要复用旧 HTML 或手写样式。
 
 只有用户明确授权发布时，才运行：
 
 ```bash
 python3 <本skill目录>/scripts/publish_to_wechat.py \
   "<母稿或gzh输入稿.md>" \
-  --content-html "<gzh-design生成的干净正文.html>"
+  --content-html "<wechat-typeset 生成的 *-排版.html>"
 ```
 
 有原创封面时追加：
@@ -207,7 +207,7 @@ python3 <本skill目录>/scripts/publish_to_wechat.py \
 --cover "<封面图路径>" --cover-no-title
 ```
 
-发布前确保 HTML 校验通过、图片可上传、封面可用。发布配置从当前目录或本 skill 目录的 `.env` 读取 `WECHAT_APP_ID`、`WECHAT_APP_SECRET`，可选 `WECHAT_AUTHOR`；`.env` 只由用户自己填写，不要提交到任何仓库，也不要在回复里复述其中的值。脚本默认在本 skill 的同级目录 `gzh-design-skill/` 找 gzh-design 的校验和预览脚本，装在别处时设环境变量 `GZH_DESIGN_HOME`。
+发布前确保 HTML 校验通过、图片可上传、封面可用。发布配置从当前目录或本 skill 目录的 `.env` 读取 `WECHAT_APP_ID`、`WECHAT_APP_SECRET`，可选 `WECHAT_AUTHOR`；`.env` 只由用户自己填写，不要提交到任何仓库，也不要在回复里复述其中的值。脚本默认在本 skill 的同级目录 `wechat-typeset/` 找校验和预览脚本，装在别处时设环境变量 `WECHAT_TYPESET_HOME`。
 
 ## 完成时告知用户
 

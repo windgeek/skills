@@ -26,7 +26,8 @@ Then just say what you want, e.g. "narrate this script in my voice". The agent e
 | [`skill-refine`](skills/skill-refine/) | After you edit any skill, consolidate it: file new rules under the right topic, merge duplicates, resolve contradictions, keep SKILL.md lean. Ships a read-only linter and an optional reminder hook. / 每次改完 skill 自动做一遍精炼：新规则归到对的主题、合并重复、消除前后冲突、控制篇幅；附只读体检脚本和可选的提醒钩子。 |
 | [`suno-music-producer`](skills/suno-music-producer/) | Write and revise original songs for Suno, outputting ready-to-paste Title, Styles, parameters and Lyrics. / 为 Suno 创作和修改原创歌曲，直接输出可粘贴的 Title、Styles、参数和 Lyrics。 |
 | [`voice-clone`](skills/voice-clone/) | Clone your own voice locally on a Mac (Apple Silicon) with CosyVoice3 and generate Chinese / mixed Chinese-English narration. / 在 Mac 本地复刻你自己的声音，生成中文（及中英混合）配音。 |
-| [`wechat-article`](skills/wechat-article/) | Plan, research and write WeChat Official Account articles that read like a person wrote them: topic card, evidence, titles, cutting, quality gates; optional draft upload. / 策划、研究、撰写微信公众号文章，去掉 AI 腔：选题卡、证据、标题与首屏、删稿、发布前质量门；可选推送到草稿箱。 |
+| [`wechat-article`](skills/wechat-article/) | Plan, research and write WeChat Official Account articles that read like a person wrote them: topic card, evidence, titles, cutting, quality gates; hands off to wechat-typeset for layout; optional draft upload. / 策划、研究、撰写微信公众号文章，去掉 AI 腔：选题卡、证据、标题与首屏、删稿、发布前质量门；可选推送到草稿箱。 |
+| [`wechat-typeset`](skills/wechat-typeset/) | Typeset a Markdown article for the WeChat Official Account editor in a quiet 'book page' style: whitespace, ink-grey text, one vermilion accent, not a word of the source changed. Ships a renderer, a compliance checker and a copy-to-editor preview. / 把 Markdown 母稿排成公众号正文，“书页”风格：留白、墨色、全篇一种朱砂点缀，原文一个字不改；附渲染、合规校验和一键复制的预览页。 |
 <!-- SKILLS:END -->
 
 ## voice-clone
@@ -97,8 +98,18 @@ Writes songs for Suno, growing a full song from one line, groove or scene, and o
 写读者愿意读完的公众号文章：动笔前先写选题卡（读者、张力、主张、回报、证据），给每个承重结论找到原始来源，再按结构、段落、句子三层删稿，最后过十项发布前质量门；科普稿另有一套“谜题—机制—迁移”的写法。输出两份 Markdown 母稿。
 Writes WeChat Official Account articles people finish: a topic card first (reader, tension, claim, payoff, evidence), primary sources for every load-bearing claim, cutting at structure / paragraph / sentence level, and ten pre-publish gates; popular-science pieces get a puzzle → mechanism → transfer method. Outputs two Markdown masters.
 
-- 排版交给第三方的 [gzh-design](https://github.com/isjiamu/gzh-design-skill)（需另行安装）。Layout is handed to the third-party gzh-design skill, installed separately.
+- 排版交给同仓库的 `wechat-typeset`。Layout is handed to `wechat-typeset` from this repo.
 - 推送到草稿箱是可选的，需要你自己在 `.env` 里填公众号的 AppID 和 AppSecret，而且每次都要你明确说“发布”才会执行。Uploading to the drafts box is optional, needs your own AppID/AppSecret in `.env`, and only runs when you explicitly ask.
+
+需要：Python 3。Requires: Python 3.
+
+## wechat-typeset
+
+把 Markdown 母稿排成能直接粘贴进公众号编辑器的正文。样式只有一套，叫“书页”：大段留白、墨色正文、全篇只有一种朱砂色，只用在章节记号、列表符号、注释角标和文末一个小方块上；没有卡片、图标、渐变和“点赞在看”。排版由脚本确定性完成，原文一个字不改。
+Typesets a Markdown article for the WeChat Official Account editor in one quiet "book page" style: generous whitespace, ink-grey text, and a single vermilion accent used only for section marks, list markers, footnote numbers and a small end mark. No cards, icons or gradients. A script does the layout deterministically, so the source text is never rewritten.
+
+- 链接改成角标 [n]，网址列在正文之后（公众号正文外链点不开）。Links become footnote numbers with URLs listed after the body, since in-body links don't work in WeChat.
+- 附合规校验（会被公众号过滤的写法、半角标点）和预览页：手机宽度、可切深色模式、一键复制正文。Includes a compliance checker and a phone-width preview with a dark-mode toggle and a one-click copy button.
 
 需要：Python 3。Requires: Python 3.
 

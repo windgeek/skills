@@ -73,11 +73,20 @@
     },
     {
       "name": "wechat-article",
-      "description": "Plan, research and write WeChat Official Account articles that read like a person wrote them: topic card, evidence, titles, cutting, quality gates; optional draft upload. 策划、研究、撰写微信公众号文章，去掉 AI 腔：选题卡、证据、标题与首屏、删稿、发布前质量门；可选推送到草稿箱。",
+      "description": "Plan, research and write WeChat Official Account articles that read like a person wrote them: topic card, evidence, titles, cutting, quality gates; hands off to wechat-typeset for layout; optional draft upload. 策划、研究、撰写微信公众号文章，去掉 AI 腔：选题卡、证据、标题与首屏、删稿、发布前质量门；可选推送到草稿箱。",
       "source": "./",
       "strict": false,
       "skills": [
         "./skills/wechat-article"
+      ]
+    },
+    {
+      "name": "wechat-typeset",
+      "description": "Typeset a Markdown article for the WeChat Official Account editor in a quiet 'book page' style: whitespace, ink-grey text, one vermilion accent, not a word of the source changed. Ships a renderer, a compliance checker and a copy-to-editor preview. 把 Markdown 母稿排成公众号正文，“书页”风格：留白、墨色、全篇一种朱砂点缀，原文一个字不改；附渲染、合规校验和一键复制的预览页。",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/wechat-typeset"
       ]
     }
   ]
