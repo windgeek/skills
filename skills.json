@@ -6,5 +6,9 @@
   "code-cinema": {
     "en": "Direct and render artistic music videos / short films in code. Analyses your song, then invents a fitting visual style for it; the style library grows with every film.",
     "zh": "用代码导演并渲染有艺术性的 MV 与短片：先分析歌，再原创贴合它的画面风格，风格库随每支片子增长。"
+  },
+  "skill-refine": {
+    "en": "After you edit any skill, consolidate it: file new rules under the right topic, merge duplicates, resolve contradictions, keep SKILL.md lean. Ships a read-only linter and an optional reminder hook.",
+    "zh": "每次改完 skill 自动做一遍精炼：新规则归到对的主题、合并重复、消除前后冲突、控制篇幅；附只读体检脚本和可选的提醒钩子。"
   }
 }

@@ -20,6 +20,7 @@ Then just say what you want, e.g. "narrate this script in my voice". The agent e
 | Skill | What it does |
 |---|---|
 | [`code-cinema`](skills/code-cinema/) | Direct and render artistic music videos / short films in code. Analyses your song, then invents a fitting visual style for it; the style library grows with every film. / 用代码导演并渲染有艺术性的 MV 与短片：先分析歌，再原创贴合它的画面风格，风格库随每支片子增长。 |
+| [`skill-refine`](skills/skill-refine/) | After you edit any skill, consolidate it: file new rules under the right topic, merge duplicates, resolve contradictions, keep SKILL.md lean. Ships a read-only linter and an optional reminder hook. / 每次改完 skill 自动做一遍精炼：新规则归到对的主题、合并重复、消除前后冲突、控制篇幅；附只读体检脚本和可选的提醒钩子。 |
 | [`voice-clone`](skills/voice-clone/) | Clone your own voice locally on a Mac (Apple Silicon) with CosyVoice3 and generate Chinese / mixed Chinese-English narration. / 在 Mac 本地复刻你自己的声音，生成中文（及中英混合）配音。 |
 <!-- SKILLS:END -->
 
@@ -44,6 +45,16 @@ Makes artistic music videos and short films in code, without video-generation mo
 **Automatic pre-delivery check.** `framecheck.mjs` flags cuts whose visual change misses the beat, stray flicker frames, overlapping or clipped text, long static stretches and non-deterministic frames, and outputs a contact sheet with the problem areas boxed in red.
 
 需要：macOS（Apple 芯片）、Chrome、ffmpeg、Node.js、Python 3。Requires: Apple-silicon macOS, Chrome, ffmpeg, Node.js, Python 3.
+
+## skill-refine
+
+skill 越用越长：每次踩坑、每次被纠正，都往里加一条。只往后追加，几轮之后同一条规则写了三遍，新规则和旧规则互相打架，真正要紧的硬规则埋在一堆案例里。这个 skill 让 agent 在**每次改完 skill 后**做一遍精炼：通读全部内容，把新规则归到对的主题下，合并重复，按你最新的意思统一冲突，把案例挪进 references/、让 SKILL.md 保持精简，并且不弱化你说过的任何一条要求，最后报告改了什么。
+Skills grow by appending lessons, and soon the same rule appears three times, new rules contradict old ones, and the hard rules get buried. After every skill edit, this skill has the agent read everything, file the new rule under the right topic, merge duplicates, resolve contradictions in favour of your latest intent, keep SKILL.md lean, never water down a requirement, and report what changed.
+
+- `lint_skill.py`（只读）：查结构（frontmatter、篇幅、断链、没人引用的文件）、重复条目（跨文件、跨 skill）、冲突线索（同一话题不同数值、“必须 / 不要”相反）、按时间堆积的迹象。Read-only linter for structure, duplicates across files and skills, contradiction hints, and append-only sprawl.
+- `remind_hook.py`（可选）：Claude Code 的 PostToolUse 钩子，写入 skill 目录后提醒 agent 精炼，每个 skill 每个会话只提醒一次；安装前需要你同意。Optional Claude Code hook that reminds the agent once per skill per session; installed only with your consent.
+
+需要：Python 3。Requires: Python 3.
 
 ## License
 
