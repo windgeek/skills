@@ -1,0 +1,83 @@
+# 角色设定模板
+# 使用方法：复制此模板，填写所有字段
+
+name: ""                    # 姓名
+aliases: []                 # 别名/外号/称号
+gender: ""                  # 性别
+age: ""                     # 年龄（或年龄段）
+first_appearance: ""        # 首次出场章节
+
+# 外貌特征（挑3-5个最有辨识度的特征，避免泛泛描写）
+appearance:
+  height: ""                # 身高描述
+  build: ""                 # 体型
+  distinctive_features: []  # 标志性特征（如：左眼下有颗泪痣、总是穿黑色风衣）
+  first_impression: ""      # 别人第一眼看到他的感觉
+
+# 性格内核
+personality:
+  core_traits:              # 三个核心性格词 + 具体表现
+    - trait: ""
+      manifestation: ""     # 这个性格在行为上怎么体现
+    - trait: ""
+      manifestation: ""
+    - trait: ""
+      manifestation: ""
+  strengths: []             # 性格优点
+  flaws: []                 # 性格缺陷（必须有！完美角色没人爱看）
+  quirks: []                # 小习惯/小癖好（让角色鲜活的细节）
+
+# 说话风格（这是保持角色一致性的关键！）
+speech:
+  tone: ""                  # 语气基调（如：阴阳怪气、温和有礼、粗犷直接）
+  catchphrases: []          # 口头禅（1-3个）
+  vocabulary_level: ""      # 用词水平（文绉绉/接地气/粗俗/专业术语多）
+  speech_habits: []         # 说话习惯（如：喜欢用反问句、说话总带"嗯"、紧张时结巴）
+  sample_dialogues:         # 示例对话（至少3段，展示不同情绪下的说话方式）
+    - situation: "平时闲聊"
+      dialogue: ""
+    - situation: "愤怒/激动"
+      dialogue: ""
+    - situation: "面对危险"
+      dialogue: ""
+
+# 核心动机
+motivation:
+  want: ""                  # 表面目标（角色认为自己想要什么）
+  need: ""                  # 深层需求（角色真正需要什么，可能自己没意识到）
+  fear: ""                  # 最大恐惧
+  wound: ""                 # 过去的创伤/执念
+
+# 内在矛盾（让角色有深度的关键）
+inner_conflict: ""          # 内心的核心矛盾（如：渴望信任别人 vs 害怕再次被背叛）
+
+# 能力设定
+abilities:
+  power_level: ""           # 实力定位（在体系中的位置）
+  skills: []                # 技能列表
+  limitations: []           # 能力限制（必须有！没限制就没戏剧性）
+  growth_potential: ""      # 成长空间
+
+# 角色弧线
+arc:
+  starting_point: ""        # 故事开始时是什么样的人
+  key_turning_points: []    # 关键转折（什么事件改变了TA）
+  ending_point: ""          # 故事结束时变成什么样的人
+  theme: ""                 # 这个角色代表的主题
+
+# 人物关系
+relationships:
+  - character: ""
+    relation: ""            # 关系类型
+    dynamic: ""             # 关系动态（如：表面师徒实则父子情、互相看不顺眼但关键时刻互相信任）
+    evolution: ""           # 关系会如何发展
+
+# 背景故事
+backstory: |
+  简短的背景故事，只写影响当前剧情的部分。
+  不需要写完整传记，够用就行。
+
+# 写作注意事项
+writing_notes: |
+  写这个角色时需要特别注意的点。
+  比如：不要让他轻易道歉、她在陌生人面前会装冷漠、等等。

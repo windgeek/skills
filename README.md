@@ -20,6 +20,7 @@ Then just say what you want, e.g. "narrate this script in my voice". The agent e
 | Skill | What it does |
 |---|---|
 | [`code-cinema`](skills/code-cinema/) | Direct and render artistic music videos / short films in code. Analyses your song, then invents a fitting visual style for it; the style library grows with every film. / 用代码导演并渲染有艺术性的 MV 与短片：先分析歌，再原创贴合它的画面风格，风格库随每支片子增长。 |
+| [`novel`](skills/novel/) | Write long web serials (100k+ characters) chapter by chapter without losing the thread: layered context loading, continuity log, character state, foreshadowing tracker, beat sheet, and a post-chapter checklist. Tuned for Fanqie Novel. / 长篇网文（十万字以上）逐章续写不丢线：分层加载上下文、连贯性日志、角色状态、伏笔追踪、节拍表和写后校验清单；按番茄小说平台的规则调校。 |
 | [`skill-refine`](skills/skill-refine/) | After you edit any skill, consolidate it: file new rules under the right topic, merge duplicates, resolve contradictions, keep SKILL.md lean. Ships a read-only linter and an optional reminder hook. / 每次改完 skill 自动做一遍精炼：新规则归到对的主题、合并重复、消除前后冲突、控制篇幅；附只读体检脚本和可选的提醒钩子。 |
 | [`voice-clone`](skills/voice-clone/) | Clone your own voice locally on a Mac (Apple Silicon) with CosyVoice3 and generate Chinese / mixed Chinese-English narration. / 在 Mac 本地复刻你自己的声音，生成中文（及中英混合）配音。 |
 <!-- SKILLS:END -->
@@ -55,6 +56,16 @@ Skills grow by appending lessons, and soon the same rule appears three times, ne
 - `remind_hook.py`（可选）：Claude Code 的 PostToolUse 钩子，写入 skill 目录后提醒 agent 精炼，每个 skill 每个会话只提醒一次；安装前需要你同意。Optional Claude Code hook that reminds the agent once per skill per session; installed only with your consent.
 
 需要：Python 3。Requires: Python 3.
+
+## novel
+
+长篇网文写到几十章以后，最常见的事故是忘事：人物知道了不该知道的事、约好的见面没下文、地名前后不一、伏笔埋了没收。这个 skill 让 agent 把小说当成一个项目来写：设定、大纲、人物、连贯性日志、伏笔表都存在 `novel/` 目录里，每写一章前按需加载，写完后逐项校验并更新。之后你只要说“继续”，它会自己恢复进度、判断要不要先做一致性检查或补大纲，然后写下一章。
+Long serials break down after a few dozen chapters: characters know things they shouldn't, promised meetings never happen, place names drift, foreshadowing is never paid off. This skill has the agent run the novel as a project: setting, outlines, characters, a continuity log and a foreshadowing tracker live in `novel/`, loaded in tiers before each chapter and checked and updated after it. Then you just say "continue": it restores state, decides whether a consistency check or a new outline is due, and writes the next chapter.
+
+- 章节字数、标题、正文排版按番茄小说的平台限制设定；用在别的平台时改一下即可。Chapter length, title and formatting rules follow Fanqie Novel's limits; adjust them for other platforms.
+- 每 10 章自动做一次一致性检查，日志和伏笔表按卷归档，长篇写到几百章也不会撑爆上下文。A consistency audit every 10 chapters and per-volume archiving keep the working files small even after hundreds of chapters.
+
+需要：能读写本地文件的 agent。Requires: an agent that can read and write local files.
 
 ## License
 
