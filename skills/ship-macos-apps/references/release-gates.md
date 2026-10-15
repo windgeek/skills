@@ -17,6 +17,7 @@ Stop upload or release when a required item fails.
 - macOS build string is greater than every previously uploaded build string.
 - Release builds with the intended SDK and deployment target.
 - Archive succeeds from a clean build.
+- The archive's Organizer build matches the build inside the app (`scripts/check_archive_build.sh`).
 - No build errors or unexplained signing warnings.
 - The uploaded TestFlight build number matches the intended archive.
 

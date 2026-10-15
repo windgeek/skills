@@ -40,6 +40,8 @@ Use separate identities and environments for development and distribution. Treat
 ### 2. Local Release and Archive
 
 - Build Release and Archive for compilation, signing, entitlement, asset, and upload validation.
+- Raise the build number with `scripts/bump_build.sh --project /abs/App.xcodeproj [build]`, not Xcode's General > Build field. A value typed there can reach the archived app while the archive metadata keeps the old number, so Organizer lists the wrong build. The script edits `project.pbxproj`, which Xcode reloads while open; it bumps every configuration holding the highest build (app and extensions) and warns if an Info.plist hard-codes `CFBundleVersion`.
+- After archiving, run `scripts/check_archive_build.sh` (newest archive, or pass a path). It compares the build Organizer shows with the one inside the app and prints the one-line fix if they differ. Archive folder names contain a narrow no-break space before AM/PM, so pass archive paths by glob or tab completion, never typed.
 - Do not launch a production-bundle-ID Release build from the coding agent, a shell, Xcode DerivedData, or an archive path on the daily development account.
 - Do not register archive products with LaunchServices for ad hoc testing.
 - If local production-identity execution is unavoidable, use a disposable macOS user account or VM and document why.

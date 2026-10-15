@@ -63,10 +63,10 @@ Rules:
 1. Freeze the intended scope.
 2. Run the project identity audit.
 3. Build and test Debug one final time.
-4. Archive Release once from a clean build.
+4. Raise the build number with `scripts/bump_build.sh`, then archive Release once from a clean build.
 5. Inspect the archive:
    - production bundle ID and display name;
-   - version/build;
+   - version/build, with `scripts/check_archive_build.sh` confirming Organizer and the app agree;
    - signing team and distribution certificate;
    - App Sandbox and required entitlements;
    - usage-description keys;
