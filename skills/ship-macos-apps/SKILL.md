@@ -41,11 +41,13 @@ Use separate identities and environments for development and distribution. Treat
 
 - Build Release and Archive for compilation, signing, entitlement, asset, and upload validation.
 - Change the build number and version with `scripts/bump_build.sh --project /abs/App.xcodeproj [--version X.Y[.Z]|major|minor|patch] [build]`, not Xcode's General tab. A value typed there can reach the archived app while the archive metadata keeps the old number, so Organizer lists the wrong build. With no build given it adds one; `--version minor` (likewise `patch`, `major`) increments the current version, e.g. 2.0 → 2.1; `--version` also raises the build, since every new upload needs a higher one, so run it once per archive. The script edits `project.pbxproj`, which Xcode reloads while open; it changes every configuration holding the app's current build (app and extensions, not test targets) and warns if an Info.plist hard-codes `CFBundleVersion` or `CFBundleShortVersionString`.
+- Archive without opening Xcode with `scripts/archive_app.sh --project /abs/App.xcodeproj --scheme App`. It writes to the folder Organizer reads, signs with the accounts signed in to Xcode, runs the check below, and prints the archive path last.
 - After archiving, run `scripts/check_archive_build.sh` (newest archive, or pass a path). It compares the build Organizer shows with the one inside the app and prints the one-line fix if they differ. Archive folder names contain a narrow no-break space before AM/PM, so pass archive paths by glob or tab completion, never typed.
 - Do not launch a production-bundle-ID Release build from the coding agent, a shell, Xcode DerivedData, or an archive path on the daily development account.
 - Do not register archive products with LaunchServices for ad hoc testing.
 - If local production-identity execution is unavoidable, use a disposable macOS user account or VM and document why.
 - Keep the archive immutable after validation. Upload that archive; do not rebuild between final QA and upload.
+- Upload with `scripts/upload_archive.sh /abs/App.xcarchive`. Without `--confirm` it only prints version, build, bundle ID, team, architectures and entitlements; show that to the user and upload with `--confirm` only after they approve that exact build, every time. An upload spends the build number and cannot be undone. The script refuses `.debug`/`.dev` bundle IDs and archives whose metadata disagrees with the app. The first command-line signing may raise a Keychain prompt the user must allow.
 
 ### 3. TestFlight
 

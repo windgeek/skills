@@ -82,8 +82,8 @@ Internationalizes and translates Apple-platform apps: migrates legacy `.strings`
 
 ## ship-macos-apps
 
-让 AI 编程 agent 参与 macOS app 开发时，最容易出事的是“身份”：Debug 和正式版共用 bundle ID、agent 从命令行启动了正式版，结果隐私权限、菜单栏图标在开发机上错乱，别人的机器却正常。这个 skill 把开发、本地 Release、TestFlight、上架分成四条互不污染的线，并附只读的项目和已安装 app 体检脚本、发布前检查清单，以及改版本号和 build 号（可直接在原来的基础上加一）、核对归档版本号的小脚本（避免 Organizer 里显示旧 build 号）。
-When an AI coding agent helps build a macOS app, the usual failures are about identity: Debug and Release share a bundle ID, or the agent launches the production build from a shell, and permissions or the menu bar icon break on the developer's Mac only. This skill keeps development, local Release, TestFlight and App Store as four separate lanes, with read-only project / installed-app audits, release gates, and small scripts to set or increment the version and build number, and check that an archive shows the build it contains.
+让 AI 编程 agent 参与 macOS app 开发时，最容易出事的是“身份”：Debug 和正式版共用 bundle ID、agent 从命令行启动了正式版，结果隐私权限、菜单栏图标在开发机上错乱，别人的机器却正常。这个 skill 把开发、本地 Release、TestFlight、上架分成四条互不污染的线，并附只读的项目和已安装 app 体检脚本、发布前检查清单，以及改版本号和 build 号（可直接在原来的基础上加一）、核对归档版本号的小脚本（避免 Organizer 里显示旧 build 号），以及不用打开 Xcode 的归档和上传脚本（上传前先列出版本、团队、权限，确认后才传）。
+When an AI coding agent helps build a macOS app, the usual failures are about identity: Debug and Release share a bundle ID, or the agent launches the production build from a shell, and permissions or the menu bar icon break on the developer's Mac only. This skill keeps development, local Release, TestFlight and App Store as four separate lanes, with read-only project / installed-app audits, release gates, and small scripts to set or increment the version and build number, check that an archive shows the build it contains, and archive and upload without opening Xcode (the upload prints a summary and waits for confirmation).
 
 需要：macOS、Xcode。Requires: macOS, Xcode.
 

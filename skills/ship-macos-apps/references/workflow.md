@@ -72,7 +72,7 @@ Rules:
    - usage-description keys;
    - embedded helpers/extensions and their identifiers;
    - app icon and menu bar asset.
-6. Upload the same archive.
+6. Upload the same archive (`scripts/upload_archive.sh`, `--confirm` after the user approves the printed summary).
 7. Wait for App Store Connect processing; verify the build displayed in TestFlight.
 8. Add the build to the internal group and write explicit “What to Test” instructions.
 
