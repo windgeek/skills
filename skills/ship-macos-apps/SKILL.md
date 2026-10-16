@@ -1,6 +1,6 @@
 ---
 name: ship-macos-apps
-description: Develop, debug, test, diagnose, archive, distribute, and release native macOS apps safely with Xcode, AI coding agents (Codex, Claude Code…), TestFlight, and App Store Connect. Use for macOS vibe-coding workflows; Debug/Release identity separation; bundle IDs, signing, entitlements, TCC privacy permissions, Screen Recording, Accessibility, menu bar NSStatusItem issues, launch-at-login, LaunchServices conflicts, TestFlight updates, clean-install testing, App Review preparation, or diagnosing behavior that differs between the developer Mac and other testers.
+description: Develop, debug, test, diagnose, archive, distribute, and release native macOS apps safely with Xcode, AI coding agents (Codex, Claude Code…), TestFlight, and App Store Connect. Use for macOS vibe-coding workflows; Debug/Release identity separation; bundle IDs, signing, entitlements, TCC privacy permissions, Screen Recording, Accessibility, menu bar NSStatusItem issues, launch-at-login, LaunchServices conflicts, TestFlight updates, clean-install testing, App Store screenshots and posters, App Review preparation, or diagnosing behavior that differs between the developer Mac and other testers.
 ---
 
 # Ship macOS Apps
@@ -102,6 +102,10 @@ Use this order:
 8. Repair the smallest proven local record, restart only the affected service, then launch from TestFlight UI and verify again.
 
 Avoid compiling or running temporary AppKit/Swift GUI probes with the production identity. They can themselves appear as menu-bar providers or responsible launchers and corrupt the evidence.
+
+## Make store screenshots that survive the store page
+
+Posters crop real captures. Write crops as top-left raw pixels (`NSImage.draw(from:)` is bottom-left), draw them whole, find locale-sized UI per locale, and fail the compose step when a crop edge cuts content, a crop is empty, or content comes within the safe margin of the poster edge. Check new captures for real-desktop content and mid-animation values, and review every locale at store card size. Read [references/store-screenshots.md](references/store-screenshots.md) before building or changing a poster pipeline or recapturing.
 
 ## Enforce release gates
 

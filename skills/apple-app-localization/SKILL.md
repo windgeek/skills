@@ -100,6 +100,7 @@ Screenshots come after the user has verified functionality, and only when they a
   open -n "<App>.app" --args -AppleLanguages '(de)'
   ```
   If an unintended capture happens, delete it at once and tell the user.
+- Store posters that crop captures (layout guards, store-size review, per-locale UI widths): see ship-macos-apps `references/store-screenshots.md`.
 - Storefront copy (name, subtitle, keywords, description) is per locale and must use the same terms as the app. Publishing to App Store Connect is a separate action that needs explicit permission.
 
 ## Handoff

@@ -58,6 +58,12 @@ Stop upload or release when a required item fails.
 - Localization, About, Help, feedback, and privacy copy are accurate.
 - No known crash or data-loss regression remains.
 
+## Store screenshot gate
+
+- Every locale's posters were regenerated from current captures and pass the compose guards (crop edges, empty crops, safe margin).
+- A store-size contact sheet of every locale and device was reviewed; no clipped, blank or truncated UI.
+- No real-desktop content, private text or mid-animation values in any capture.
+
 ## TestFlight gate
 
 - Internal group receives the intended build.
