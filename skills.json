@@ -38,5 +38,9 @@
   "chinese-human-editor": {
     "en": "A final de-AI-voice pass for finished Chinese writing: strip false contrasts, fake aphorisms, tidy parallelism, abstract filler and empty uplift, then check with a script that numbers, quotes, names and links did not drift.",
     "zh": "中文成稿的去 AI 腔终审：清除假转折、假金句、整齐排比、抽象词和万能升华，再用脚本核对数字、引语、专名、链接没有漂移。"
+  },
+  "project-cleanup": {
+    "en": "Reclaim disk space from a project and the toolchain caches behind it (Xcode, Node, Python, Rust, Gradle, Docker): inventory first, delete what is useless, keep what gets reused, check references, then report. Ships a read-only scanner.",
+    "zh": "清理项目和它背后的工具缓存（Xcode、Node、Python、Rust、Gradle、Docker）：先盘点，没用的删、会复用的留，查清引用再动手，最后报告释放多少；附只读盘点脚本。"
   }
 }

@@ -23,6 +23,7 @@ Then just say what you want, e.g. "narrate this script in my voice". The agent e
 | [`chinese-human-editor`](skills/chinese-human-editor/) | A final de-AI-voice pass for finished Chinese writing: strip false contrasts, fake aphorisms, tidy parallelism, abstract filler and empty uplift, then check with a script that numbers, quotes, names and links did not drift. / 中文成稿的去 AI 腔终审：清除假转折、假金句、整齐排比、抽象词和万能升华，再用脚本核对数字、引语、专名、链接没有漂移。 |
 | [`code-cinema`](skills/code-cinema/) | Direct and render artistic music videos / short films in code. Analyses your song, then invents a fitting visual style for it; the style library grows with every film. / 用代码导演并渲染有艺术性的 MV 与短片：先分析歌，再原创贴合它的画面风格，风格库随每支片子增长。 |
 | [`novel`](skills/novel/) | Write web serials at million-character scale, chapter by chapter, without losing the thread: layered context loading, continuity log, character state, foreshadowing tracker, beat sheet, and a post-chapter checklist. Tuned for Fanqie Novel. / 百万字级长篇网文逐章续写不丢线：分层加载上下文、连贯性日志、角色状态、伏笔追踪、节拍表和写后校验清单；按番茄小说平台的规则调校。 |
+| [`project-cleanup`](skills/project-cleanup/) | Reclaim disk space from a project and the toolchain caches behind it (Xcode, Node, Python, Rust, Gradle, Docker): inventory first, delete what is useless, keep what gets reused, check references, then report. Ships a read-only scanner. / 清理项目和它背后的工具缓存（Xcode、Node、Python、Rust、Gradle、Docker）：先盘点，没用的删、会复用的留，查清引用再动手，最后报告释放多少；附只读盘点脚本。 |
 | [`ship-macos-apps`](skills/ship-macos-apps/) | Develop and ship native macOS apps safely with an AI coding agent: Debug/Release identity separation, signing, TCC permissions, menu bar items, TestFlight and App Review gates. / 和 AI 编程 agent 一起安全地开发、发布 macOS 原生 app：Debug/Release 身份分离、签名、隐私权限、菜单栏图标、TestFlight 与上架检查。 |
 | [`skill-refine`](skills/skill-refine/) | After you edit any skill, consolidate it: file new rules under the right topic, merge duplicates, resolve contradictions, keep SKILL.md lean. Ships a read-only linter and an optional reminder hook. / 每次改完 skill 自动做一遍精炼：新规则归到对的主题、合并重复、消除前后冲突、控制篇幅；附只读体检脚本和可选的提醒钩子。 |
 | [`suno-music-producer`](skills/suno-music-producer/) | Write and revise original songs for Suno, outputting ready-to-paste Title, Styles, parameters and Lyrics. / 为 Suno 创作和修改原创歌曲，直接输出可粘贴的 Title、Styles、参数和 Lyrics。 |
@@ -122,6 +123,15 @@ Finished Chinese drafts often read as machine-written: "not X but Y", symmetrica
 `wechat-article` 和 `novel` 都会调用它。Used by `wechat-article` and `novel`.
 
 需要：Python 3。Requires: Python 3.
+
+## project-cleanup
+
+项目目录往往不大，真正占空间的是它背后的工具缓存：Xcode 的 DerivedData、Archive、模拟器，node_modules，Python 虚拟环境，Gradle、Cargo、Docker。这个 skill 让 agent 先把项目和这些缓存一起盘点，按“没用的删、会复用的留”分类：能自动重建的缓存和被新版取代的旧产物删掉；模拟器、已发布版本的符号文件、当前流水线的原始素材留着。删之前查清引用（连同废弃脚本一起清掉），向你确认清单，删完报告释放了多少。
+Projects are usually small; the space goes to the toolchain caches behind them. This skill has the agent inventory both, delete what is regenerable or superseded, keep what gets reused (simulators, symbols of shipped builds, inputs of the current pipeline), check references before deleting, confirm the list with you, and report what was freed.
+
+- `scan.py`（只读）：项目里最大的目录、不在 git 里的大文件（删了无法从 git 恢复）、可疑的零碎文件、按项目类型探测到的全局缓存和磁盘剩余空间。Read-only scanner for the largest entries, files outside git, stray files, detected global caches and free space.
+
+需要：Python 3，macOS 或 Linux。Requires: Python 3, macOS or Linux.
 
 ## License
 

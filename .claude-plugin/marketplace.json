@@ -45,6 +45,15 @@
       ]
     },
     {
+      "name": "project-cleanup",
+      "description": "Reclaim disk space from a project and the toolchain caches behind it (Xcode, Node, Python, Rust, Gradle, Docker): inventory first, delete what is useless, keep what gets reused, check references, then report. Ships a read-only scanner. 清理项目和它背后的工具缓存（Xcode、Node、Python、Rust、Gradle、Docker）：先盘点，没用的删、会复用的留，查清引用再动手，最后报告释放多少；附只读盘点脚本。",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/project-cleanup"
+      ]
+    },
+    {
       "name": "ship-macos-apps",
       "description": "Develop and ship native macOS apps safely with an AI coding agent: Debug/Release identity separation, signing, TCC permissions, menu bar items, TestFlight and App Review gates. 和 AI 编程 agent 一起安全地开发、发布 macOS 原生 app：Debug/Release 身份分离、签名、隐私权限、菜单栏图标、TestFlight 与上架检查。",
       "source": "./",
