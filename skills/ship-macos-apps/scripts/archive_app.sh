@@ -1,10 +1,15 @@
 #!/bin/sh
 
-# Archive a macOS app from the command line, into the folder Organizer reads,
-# then confirm the archive shows the build it contains.
+# Archive an app from the command line, into the folder Organizer reads, then
+# confirm the archive shows the build it contains.
 #
 #   archive_app.sh --project /abs/App.xcodeproj --scheme App
 #   archive_app.sh --workspace /abs/App.xcworkspace --scheme App [--output /abs/dir]
+#   archive_app.sh --project … --scheme App --platform ios        # iPhone/iPad
+#   archive_app.sh --project … --scheme App --platform catalyst   # Mac Catalyst
+#
+# An app that ships iOS and Mac Catalyst needs two archives (ios, catalyst);
+# upload both with upload_archive.sh. --platform defaults to macos.
 #
 # Same result as Product > Archive in Xcode, which need not be open. Signing
 # uses the accounts signed in to Xcode (-allowProvisioningUpdates). Prints the
@@ -13,7 +18,7 @@
 set -eu
 
 usage() {
-    echo "usage: archive_app.sh (--project App.xcodeproj | --workspace App.xcworkspace) --scheme Scheme [--configuration Release] [--output dir]" >&2
+    echo "usage: archive_app.sh (--project App.xcodeproj | --workspace App.xcworkspace) --scheme Scheme [--platform macos|ios|catalyst] [--configuration Release] [--output dir]" >&2
     exit 2
 }
 
@@ -22,6 +27,7 @@ container=""
 scheme=""
 configuration="Release"
 output=""
+platform="macos"
 while [ "$#" -gt 0 ]; do
     case "$1" in
         --project) [ "$#" -ge 2 ] || usage; container_flag=-project; container="$2"; shift 2 ;;
@@ -29,19 +35,27 @@ while [ "$#" -gt 0 ]; do
         --scheme) [ "$#" -ge 2 ] || usage; scheme="$2"; shift 2 ;;
         --configuration) [ "$#" -ge 2 ] || usage; configuration="$2"; shift 2 ;;
         --output) [ "$#" -ge 2 ] || usage; output="$2"; shift 2 ;;
+        --platform) [ "$#" -ge 2 ] || usage; platform="$2"; shift 2 ;;
         *) usage ;;
     esac
 done
 [ -n "$container" ] && [ -n "$scheme" ] || usage
 
+case "$platform" in
+    macos) destination='generic/platform=macOS' ;;
+    ios) destination='generic/platform=iOS' ;;
+    catalyst) destination='generic/platform=macOS,variant=Mac Catalyst' ;;
+    *) usage ;;
+esac
+
 dir=${output:-"$HOME/Library/Developer/Xcode/Archives/$(date +%F)"}
 mkdir -p "$dir"
-archive="$dir/$scheme $(date '+%d-%m-%Y, %H.%M.%S').xcarchive"
+archive="$dir/$scheme $platform $(date '+%d-%m-%Y, %H.%M.%S').xcarchive"
 log=$(mktemp -t archive_app).log
 
-echo "Archiving $scheme ($configuration)… log: $log"
+echo "Archiving $scheme for $platform ($configuration)… log: $log"
 if ! xcodebuild archive "$container_flag" "$container" -scheme "$scheme" \
-        -configuration "$configuration" -destination 'generic/platform=macOS' \
+        -configuration "$configuration" -destination "$destination" \
         -archivePath "$archive" -allowProvisioningUpdates > "$log" 2>&1; then
     grep -E "error:|\*\* ARCHIVE" "$log" | head -20 >&2
     echo "Archive failed. Full log: $log" >&2

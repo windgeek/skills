@@ -20,10 +20,14 @@ fi
 app=$(ls -d "$archive"/Products/Applications/*.app 2>/dev/null | head -1)
 [ -n "$app" ] || { echo "No app inside $archive" >&2; exit 1; }
 
+# A Mac app keeps its Info.plist in Contents/; an iOS app keeps it at the root.
+plist="$app/Contents/Info.plist"
+[ -f "$plist" ] || plist="$app/Info.plist"
+
 shown_version=$(/usr/libexec/PlistBuddy -c "Print :ApplicationProperties:CFBundleShortVersionString" "$archive/Info.plist")
 shown_build=$(/usr/libexec/PlistBuddy -c "Print :ApplicationProperties:CFBundleVersion" "$archive/Info.plist")
-real_version=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$app/Contents/Info.plist")
-real_build=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$app/Contents/Info.plist")
+real_version=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$plist")
+real_build=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$plist")
 
 echo "Archive:   $archive"
 echo "Organizer: $shown_version ($shown_build)"

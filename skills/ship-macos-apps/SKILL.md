@@ -1,6 +1,6 @@
 ---
 name: ship-macos-apps
-description: Develop, debug, test, diagnose, archive, distribute, and release native macOS apps safely with Xcode, AI coding agents (Codex, Claude Code…), TestFlight, and App Store Connect. Use for macOS vibe-coding workflows; Debug/Release identity separation; bundle IDs, signing, entitlements, TCC privacy permissions, Screen Recording, Accessibility, menu bar NSStatusItem issues, launch-at-login, LaunchServices conflicts, TestFlight updates, clean-install testing, App Store screenshots and posters, App Review preparation, or diagnosing behavior that differs between the developer Mac and other testers.
+description: Develop, debug, test, diagnose, archive, distribute, and release native macOS apps (and iOS + Mac Catalyst apps) safely with Xcode, AI coding agents (Codex, Claude Code…), TestFlight, and App Store Connect. Use for macOS vibe-coding workflows; Debug/Release identity separation; bundle IDs, signing, entitlements, TCC privacy permissions, Screen Recording, Accessibility, menu bar NSStatusItem issues, launch-at-login, LaunchServices conflicts, archiving and uploading iOS/Mac Catalyst builds, version trains, TestFlight updates, clean-install testing, App Store screenshots and posters, header and search-result assets, filling App Store Connect pages per locale, iPhone Duo (foldable) support, App Review preparation, or diagnosing behavior that differs between the developer Mac and other testers.
 ---
 
 # Ship macOS Apps
@@ -41,13 +41,13 @@ Use separate identities and environments for development and distribution. Treat
 
 - Build Release and Archive for compilation, signing, entitlement, asset, and upload validation.
 - Change the build number and version with `scripts/bump_build.sh --project /abs/App.xcodeproj [--version X.Y[.Z]|major|minor|patch] [build]`, not Xcode's General tab. A value typed there can reach the archived app while the archive metadata keeps the old number, so Organizer lists the wrong build. With no build given it adds one; `--version minor` (likewise `patch`, `major`) increments the current version, e.g. 2.0 → 2.1; `--version` also raises the build, since every new upload needs a higher one, so run it once per archive. The script edits `project.pbxproj`, which Xcode reloads while open; it changes every configuration holding the app's current build (app and extensions, not test targets) and warns if an Info.plist hard-codes `CFBundleVersion` or `CFBundleShortVersionString`.
-- Archive without opening Xcode with `scripts/archive_app.sh --project /abs/App.xcodeproj --scheme App`. It writes to the folder Organizer reads, signs with the accounts signed in to Xcode, runs the check below, and prints the archive path last.
+- Archive without opening Xcode with `scripts/archive_app.sh --project /abs/App.xcodeproj --scheme App [--platform macos|ios|catalyst]`. It writes to the folder Organizer reads, signs with the accounts signed in to Xcode, runs the check below, and prints the archive path last. An app that ships on iOS and Mac Catalyst needs one archive per platform; all three scripts read both bundle layouts.
 - After archiving, run `scripts/check_archive_build.sh` (newest archive, or pass a path). It compares the build Organizer shows with the one inside the app and prints the one-line fix if they differ. Archive folder names contain a narrow no-break space before AM/PM, so pass archive paths by glob or tab completion, never typed.
 - Do not launch a production-bundle-ID Release build from the coding agent, a shell, Xcode DerivedData, or an archive path on the daily development account.
 - Do not register archive products with LaunchServices for ad hoc testing.
 - If local production-identity execution is unavoidable, use a disposable macOS user account or VM and document why.
 - Keep the archive immutable after validation. Upload that archive; do not rebuild between final QA and upload.
-- Upload with `scripts/upload_archive.sh /abs/App.xcarchive`. Without `--confirm` it only prints version, build, bundle ID, team, architectures and entitlements; show that to the user and upload with `--confirm` only after they approve that exact build, every time. An upload spends the build number and cannot be undone. The script refuses `.debug`/`.dev` bundle IDs and archives whose metadata disagrees with the app. The first command-line signing may raise a Keychain prompt the user must allow.
+- Upload with `scripts/upload_archive.sh /abs/App.xcarchive`. Without `--confirm` it only prints version, build, bundle ID, team, architectures and entitlements; show that to the user and upload with `--confirm` only after they approve that exact build, every time. An upload spends the build number and cannot be undone. The script refuses `.debug`/`.dev` bundle IDs and archives whose metadata disagrees with the app. The first command-line signing may raise a Keychain prompt the user must allow. If a platform's train is closed ("previously approved version"), raise the marketing version for every platform and re-archive; see [references/app-store-connect.md](references/app-store-connect.md).
 
 ### 3. TestFlight
 
@@ -105,7 +105,11 @@ Avoid compiling or running temporary AppKit/Swift GUI probes with the production
 
 ## Make store screenshots that survive the store page
 
-Posters crop real captures. Write crops as top-left raw pixels (`NSImage.draw(from:)` is bottom-left), draw them whole, find locale-sized UI per locale, and fail the compose step when a crop edge cuts content, a crop is empty, or content comes within the safe margin of the poster edge. Check new captures for real-desktop content and mid-animation values, and review every locale at store card size. Read [references/store-screenshots.md](references/store-screenshots.md) before building or changing a poster pipeline or recapturing.
+Posters crop real captures. Write crops as top-left raw pixels (`NSImage.draw(from:)` is bottom-left), draw them whole, find locale-sized UI per locale, and fail the compose step when a crop edge cuts content, a crop is empty, or content comes within the safe margin of the poster edge. Check new captures for real-desktop content and mid-animation values, and review every locale at store card size. Read [references/store-screenshots.md](references/store-screenshots.md) before building or changing a poster pipeline or recapturing, and [references/app-store-connect.md](references/app-store-connect.md) before uploading screenshots, header or search assets, or editing store fields per locale.
+
+## Support iPhone Duo
+
+Read the fold with `reservedRegions(kind: .division, options: .includeInactive)` (not on Mac Catalyst), lay out per crease direction, decide sheets and columns by width rather than idiom, and test both displays in the simulator. Read [references/iphone-duo.md](references/iphone-duo.md).
 
 ## Enforce release gates
 

@@ -63,6 +63,8 @@ Stop upload or release when a required item fails.
 - Every locale's posters were regenerated from current captures and pass the compose guards (crop edges, empty crops, safe margin).
 - A store-size contact sheet of every locale and device was reviewed; no clipped, blank or truncated UI.
 - No real-desktop content, private text or mid-animation values in any capture.
+- In App Store Connect, after a reload, every locale on every platform reads back: screenshot counts per set, What's New, promotional text, Support URL, Privacy Policy URL, and (iOS) header and search assets. A locale switch that silently missed is the usual cause of a wrong value ([app-store-connect.md](app-store-connect.md)).
+- Every platform's version is the same marketing version, and its train is open (not already approved).
 
 ## TestFlight gate
 

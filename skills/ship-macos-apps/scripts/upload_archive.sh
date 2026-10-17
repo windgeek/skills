@@ -31,14 +31,20 @@ done
 app=$(ls -d "$archive"/Products/Applications/*.app 2>/dev/null | head -1)
 [ -n "$app" ] || { echo "No app inside $archive" >&2; exit 1; }
 
-plist="$app/Contents/Info.plist"
+# Mac (and Mac Catalyst) apps keep Info.plist and the binary in Contents/;
+# iOS apps keep both at the bundle root.
+if [ -f "$app/Contents/Info.plist" ]; then
+    plist="$app/Contents/Info.plist"; bin_dir="$app/Contents/MacOS"
+else
+    plist="$app/Info.plist"; bin_dir="$app"
+fi
 version=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$plist")
 build=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$plist")
 bundle_id=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$plist")
 name=$(/usr/libexec/PlistBuddy -c "Print :CFBundleDisplayName" "$plist" 2>/dev/null \
     || /usr/libexec/PlistBuddy -c "Print :CFBundleName" "$plist")
 team=$(codesign -dvv "$app" 2>&1 | sed -n 's/^TeamIdentifier=//p')
-archs=$(lipo -archs "$app/Contents/MacOS/$(/usr/libexec/PlistBuddy -c "Print :CFBundleExecutable" "$plist")")
+archs=$(lipo -archs "$bin_dir/$(/usr/libexec/PlistBuddy -c "Print :CFBundleExecutable" "$plist")")
 
 echo "Archive:      $archive"
 echo "App:          $name $version ($build)"
@@ -87,6 +93,9 @@ if xcodebuild -exportArchive -archivePath "$archive" \
     echo "Upload succeeded: $name $version ($build). App Store Connect processes it before it appears in TestFlight."
 else
     grep -E "error|Error|failed" "$work/upload.log" | tail -15 >&2
+    if grep -q "is closed for new build submissions\|must contain a higher version" "$work/upload.log"; then
+        echo "That marketing version is already approved on this platform. Raise the version (bump_build.sh --version …), re-archive every platform you ship together, and upload again." >&2
+    fi
     echo "Upload failed. Full log: $work/upload.log" >&2
     exit 1
 fi
