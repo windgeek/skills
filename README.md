@@ -30,6 +30,7 @@ Then just say what you want, e.g. "narrate this script in my voice". The agent e
 | [`voice-clone`](skills/voice-clone/) | Clone your own voice locally on a Mac (Apple Silicon) with CosyVoice3 and generate Chinese / mixed Chinese-English narration. / 在 Mac 本地复刻你自己的声音，生成中文（及中英混合）配音。 |
 | [`wechat-article`](skills/wechat-article/) | Plan, research and write WeChat Official Account articles that read like a person wrote them: topic card, evidence, titles, cutting, quality gates; hands off to wechat-typeset for layout; optional draft upload. / 策划、研究、撰写微信公众号文章，去掉 AI 腔：选题卡、证据、标题与首屏、删稿、发布前质量门；可选推送到草稿箱。 |
 | [`wechat-typeset`](skills/wechat-typeset/) | Typeset a Markdown article for the WeChat Official Account editor in a quiet 'book page' style: whitespace, ink-grey text, one vermilion accent, not a word of the source changed. Ships a renderer, a compliance checker and a copy-to-editor preview. / 把 Markdown 母稿排成公众号正文，“书页”风格：留白、墨色、全篇一种朱砂点缀，原文一个字不改；附渲染、合规校验和一键复制的预览页。 |
+| [`zlib-books`](skills/zlib-books/) | Find, download and send e-books to a Kindle from the terminal using the zlib CLI: search with quality filters, pick the best edition, download, and email it to Kindle with a bundled script. You must already have your own account. / 用 zlib 命令行搜书、下载电子书并推送到 Kindle：按质量规则挑选最佳版本，附自带的发信脚本；需要你自己的账号。 |
 <!-- SKILLS:END -->
 
 ## voice-clone
@@ -132,6 +133,15 @@ Projects are usually small; the space goes to the toolchain caches behind them. 
 - `scan.py`（只读）：项目里最大的目录、不在 git 里的大文件（删了无法从 git 恢复）、可疑的零碎文件、按项目类型探测到的全局缓存和磁盘剩余空间。Read-only scanner for the largest entries, files outside git, stray files, detected global caches and free space.
 
 需要：Python 3，macOS 或 Linux。Requires: Python 3, macOS or Linux.
+
+## zlib-books
+
+这个 skill 让 agent 用 [zlib](https://github.com/heartleo/zlib) 命令行帮你找书：先搜索，按“单本优先、评分和质量分高、正规出版社、体积合理、epub 优先”挑出最多 5 个候选，你选定后再下载，并用自带脚本把文件邮件推送到 Kindle。下载额度有限，所以不会试探性下载。请只用于你有权获取的书；登录和邮箱授权码都由你自己在终端里完成。
+This skill lets the agent find books through the zlib CLI: search, shortlist up to five editions (single volumes first, high rating and quality, real publishers, sane file size, epub preferred), download only the one you pick, and email it to your Kindle with a bundled script. Daily quota is limited, so it never downloads speculatively. Use it only for books you have the right to obtain; you log in and set the mail authorization code yourself.
+
+- `send_kindle.py`：读取 `zlib kindle config` 保存的设置和 `ZLIB_SMTP_PWD`，把文件作为附件发到 Kindle 地址，附件名自动转成 ASCII。Sends a file to your Kindle address using the settings from `zlib kindle config` and `ZLIB_SMTP_PWD`, with an ASCII-safe attachment name.
+
+需要：Python 3、[zlib](https://github.com/heartleo/zlib) 命令行及你自己的账号、邮箱 SMTP 授权码和亚马逊“已认可的发件人”设置。Requires: Python 3, the zlib CLI with your own account, a mailbox SMTP authorization code, and the sender added to Amazon's approved senders.
 
 ## License
 

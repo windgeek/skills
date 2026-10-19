@@ -106,6 +106,15 @@
       "skills": [
         "./skills/wechat-typeset"
       ]
+    },
+    {
+      "name": "zlib-books",
+      "description": "Find, download and send e-books to a Kindle from the terminal using the zlib CLI: search with quality filters, pick the best edition, download, and email it to Kindle with a bundled script. You must already have your own account. 用 zlib 命令行搜书、下载电子书并推送到 Kindle：按质量规则挑选最佳版本，附自带的发信脚本；需要你自己的账号。",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/zlib-books"
+      ]
     }
   ]
 }
