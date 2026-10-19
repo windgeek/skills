@@ -27,11 +27,11 @@ zlib profile --json
 ### 2. 搜索
 
 ```bash
-zlib search "书名 作者" --ext epub --ext mobi --language chinese --order popular --json > 结果.json
+zlib search "书名 作者" --ext epub --language chinese --order popular --json > 结果.json
 ```
 
 - 输出先存成文件再解析，直接管道给 Python 偶尔会解析失败。
-- 默认只搜 epub 和 mobi（Kindle 友好）。用户要 pdf 再加 `--ext pdf`。
+- 默认只搜 epub（Kindle 现在不再接收 MOBI）。用户要 pdf 再加 `--ext pdf`。
 - 可用参数：`--language`（chinese / english 等）、`--from-year`、`--to-year`、`--exact`（精确匹配）、`-n` 每页条数、`-p` 页码。
 - `--order` 可选 `popular`（按热度）、`bestmatch`（默认相关度）、`date`、`year`、`filesize`。**找经典书时优先 `popular`，再按相关度对照一遍**，两边都靠前的更可靠。
 - zlib 没有分级分类榜单，能用来判断“精品”的只有 JSON 里的 `rating`（评分）、`quality`（文件质量分），再加上 `--order popular` 的热度排序。
@@ -43,7 +43,7 @@ zlib search "书名 作者" --ext epub --ext mobi --language chinese --order pop
 2. **`quality` 和 `rating` 高的靠前**；评分为 0 或空表示没人评，不代表差，但排在有高分的后面。
 3. **正规出版社版本优先**：`publisher` 有出版社、有年份、有译者的，好过无出版信息的。书名里塞满宣传语的多半是商家整理版，次选。
 4. **体积要合理**：纯文字小说 epub 一般几百 KB 到几 MB。几十 KB 可能是节选或样章，几十 MB 多半带大图或是合集。
-5. 同一本书有 epub 和 mobi 时选 epub。
+5. 同一本书有多种格式时选 epub。
 
 从 JSON 里取 `id`（形如 `11735659:7659fb`）、`name`、`authors`、`publisher`、`year`、`language`、`extension`、`size`、`rating`、`quality`。
 挑最多 5 条，用表格给用户：序号、书名、作者、出版社、年份、格式、大小、评分/质量，并标出你推荐的那一条和理由。
@@ -68,7 +68,7 @@ zlib download "<id:hash>" --dir "${ZLIB_DOWNLOAD_DIR:-$HOME/Books}"
   先 `zlib download` 下载，再
   `python3 -I <本 skill 目录>/scripts/send_kindle.py "<文件路径>"`
 - 脚本读 `kindle.json` 和 `.env` 里的授权码，不打印密码；附件名自动转 ASCII，避免被亚马逊拒收；认证失败、格式不支持等都会给出明确提示。
-- Kindle 支持 EPUB、PDF、MOBI、TXT、DOC、DOCX、RTF、HTML。AZW3 不在列表里，别推。
+- Kindle 支持 EPUB、PDF、TXT、DOC、DOCX、RTF、HTML。MOBI 和 AZW3 不在列表里（zlib 自己也拒绝 .mobi），别推。
 - 推送成功只代表邮件发出，Kindle 上同步通常要几分钟，如实说明。
 
 ### 5. 其他

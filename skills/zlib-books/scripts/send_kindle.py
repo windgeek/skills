@@ -18,7 +18,7 @@ import sys
 from email.message import EmailMessage
 
 CONF = os.path.expanduser("~/.config/zlib")
-KINDLE_TYPES = {".epub", ".pdf", ".mobi", ".txt", ".doc", ".docx", ".rtf", ".html", ".htm"}
+KINDLE_TYPES = {".epub", ".pdf", ".txt", ".doc", ".docx", ".rtf", ".html", ".htm"}
 
 
 def read_password():
