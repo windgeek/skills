@@ -36,6 +36,15 @@
       ]
     },
     {
+      "name": "douyin-interest-card",
+      "description": "Make Douyin \"interest cards\" (interactive AI content cards built in Douyin Creator Center's AI Workshop): design the mini-game, write card and landing-page copy, check against the platform's creation rules, generate and fix it in AI Workshop, then publish for review. 做抖音兴趣卡（在创作者中心 AI工坊 生成的可交互 AI 内容卡）：设计玩法、写卡片和落地页文案、按平台规范自查、在 AI工坊 生成和修改、提交审核。",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/douyin-interest-card"
+      ]
+    },
+    {
       "name": "novel",
       "description": "Write web serials at million-character scale, chapter by chapter, without losing the thread: layered context loading, continuity log, character state, foreshadowing tracker, beat sheet, and a post-chapter checklist. Tuned for Fanqie Novel. 百万字级长篇网文逐章续写不丢线：分层加载上下文、连贯性日志、角色状态、伏笔追踪、节拍表和写后校验清单；按番茄小说平台的规则调校。",
       "source": "./",

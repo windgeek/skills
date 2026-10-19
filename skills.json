@@ -46,5 +46,9 @@
   "zlib-books": {
     "en": "Find, download and send e-books to a Kindle from the terminal using the zlib CLI: search with quality filters, pick the best edition, download, and email it to Kindle with a bundled script. You must already have your own account.",
     "zh": "用 zlib 命令行搜书、下载电子书并推送到 Kindle：按质量规则挑选最佳版本，附自带的发信脚本；需要你自己的账号。"
+  },
+  "douyin-interest-card": {
+    "en": "Make Douyin \"interest cards\" (interactive AI content cards built in Douyin Creator Center's AI Workshop): design the mini-game, write card and landing-page copy, check against the platform's creation rules, generate and fix it in AI Workshop, then publish for review.",
+    "zh": "做抖音兴趣卡（在创作者中心 AI工坊 生成的可交互 AI 内容卡）：设计玩法、写卡片和落地页文案、按平台规范自查、在 AI工坊 生成和修改、提交审核。"
   }
 }

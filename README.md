@@ -22,6 +22,7 @@ Then just say what you want, e.g. "narrate this script in my voice". The agent e
 | [`apple-app-localization`](skills/apple-app-localization/) | Localize Apple-platform apps with Xcode String Catalogs: migrate legacy .strings, plurals, generated symbols, translate and review against the OS's own terminology, locale QA. / 用 Xcode String Catalog 给苹果平台 app 做国际化与翻译：迁移旧 .strings、复数、生成符号，按系统自身译名翻译并复核，多语言验收。 |
 | [`chinese-human-editor`](skills/chinese-human-editor/) | A final de-AI-voice pass for finished Chinese writing: strip false contrasts, fake aphorisms, tidy parallelism, abstract filler and empty uplift, then check with a script that numbers, quotes, names and links did not drift. / 中文成稿的去 AI 腔终审：清除假转折、假金句、整齐排比、抽象词和万能升华，再用脚本核对数字、引语、专名、链接没有漂移。 |
 | [`code-cinema`](skills/code-cinema/) | Direct and render artistic music videos / short films in code. Analyses your song, then invents a fitting visual style for it; the style library grows with every film. / 用代码导演并渲染有艺术性的 MV 与短片：先分析歌，再原创贴合它的画面风格，风格库随每支片子增长。 |
+| [`douyin-interest-card`](skills/douyin-interest-card/) | Make Douyin "interest cards" (interactive AI content cards built in Douyin Creator Center's AI Workshop): design the mini-game, write card and landing-page copy, check against the platform's creation rules, generate and fix it in AI Workshop, then publish for review. / 做抖音兴趣卡（在创作者中心 AI工坊 生成的可交互 AI 内容卡）：设计玩法、写卡片和落地页文案、按平台规范自查、在 AI工坊 生成和修改、提交审核。 |
 | [`novel`](skills/novel/) | Write web serials at million-character scale, chapter by chapter, without losing the thread: layered context loading, continuity log, character state, foreshadowing tracker, beat sheet, and a post-chapter checklist. Tuned for Fanqie Novel. / 百万字级长篇网文逐章续写不丢线：分层加载上下文、连贯性日志、角色状态、伏笔追踪、节拍表和写后校验清单；按番茄小说平台的规则调校。 |
 | [`project-cleanup`](skills/project-cleanup/) | Reclaim disk space from a project and the toolchain caches behind it (Xcode, Node, Python, Rust, Gradle, Docker): inventory first, delete what is useless, keep what gets reused, check references, then report. Ships a read-only scanner. / 清理项目和它背后的工具缓存（Xcode、Node、Python、Rust、Gradle、Docker）：先盘点，没用的删、会复用的留，查清引用再动手，最后报告释放多少；附只读盘点脚本。 |
 | [`ship-macos-apps`](skills/ship-macos-apps/) | Develop and ship native macOS apps safely with an AI coding agent: Debug/Release identity separation, signing, TCC permissions, menu bar items, TestFlight and App Review gates. / 和 AI 编程 agent 一起安全地开发、发布 macOS 原生 app：Debug/Release 身份分离、签名、隐私权限、菜单栏图标、TestFlight 与上架检查。 |
@@ -142,6 +143,15 @@ This skill lets the agent find books through the zlib CLI: search, shortlist up 
 - `send_kindle.py`：读取 `zlib kindle config` 保存的设置和 `ZLIB_SMTP_PWD`，把文件作为附件发到 Kindle 地址，附件名自动转成 ASCII。Sends a file to your Kindle address using the settings from `zlib kindle config` and `ZLIB_SMTP_PWD`, with an ASCII-safe attachment name.
 
 需要：Python 3、[zlib](https://github.com/heartleo/zlib) 命令行及你自己的账号、邮箱 SMTP 授权码和亚马逊“已认可的发件人”设置。Requires: Python 3, the zlib CLI with your own account, a mailbox SMTP authorization code, and the sender added to Amazon's approved senders.
+
+## douyin-interest-card
+
+抖音“兴趣卡”是按兴趣推荐分发的轻量互动卡片，在抖音创作者中心的 AI工坊 里用文字描述生成。这个 skill 让 agent 把你的一个话题做成一张卡：先定玩法（卡内一个完整的小互动，比如拖滑块后给出结果；落地页接着往深里讲），写好文案和给 AI工坊 的描述，按平台创作规范逐条自查；然后在 AI工坊 里生成、在预览里把每个分支点一遍、一轮轮提修改，最后填发布配置。点“确认发布”之前会先问你。AI工坊 的操作经验和它常犯的错都写在 references 里。
+Douyin "interest cards" are lightweight interactive cards distributed by interest, generated from a text description in Douyin Creator Center's AI Workshop. This skill has the agent turn one of your topics into a card: design the interaction (one complete mini-game on the card, a deeper landing page), write the copy and the AI Workshop prompt, check it against the platform rules, generate it, test every branch in the preview, iterate on fixes, and fill in the publish settings. It asks you before clicking publish.
+
+- `render_states.py`：把一张标好部件的 SVG 渲染成一组透明 PNG，每张对应一个交互状态（AI工坊 的卡片环境显示不了 SVG）。Renders a tagged SVG into one transparent PNG per interaction state, since the card runtime does not display SVG.
+
+需要：抖音创作者中心账号、能操作你已登录浏览器的 agent 工具；配图脚本需要 Python 3 和 Google Chrome。Requires: a Douyin Creator Center account and an agent that can drive your logged-in browser; the image script needs Python 3 and Google Chrome.
 
 ## License
 
