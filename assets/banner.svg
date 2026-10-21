@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360" role="img" aria-label="windgeek / skills — Agent Skills for any AI agent">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101828"/>
+      <stop offset="1" stop-color="#1d2939"/>
+    </linearGradient>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#ffffff" fill-opacity="0.07"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="360" rx="24" fill="url(#bg)"/>
+  <rect width="1280" height="360" rx="24" fill="url(#dots)"/>
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif">
+    <text x="88" y="150" font-size="68" font-weight="700" fill="#98a2b3">windgeek /<tspan fill="#ffffff"> skills</tspan></text>
+    <text x="90" y="205" font-size="28" fill="#d0d5dd">Battle-tested Agent Skills for any AI agent</text>
+    <text x="90" y="245" font-size="24" fill="#98a2b3">在真实工作里磨出来的 Agent Skills，任何 agent 都能用</text>
+    <g font-size="20" font-weight="600">
+      <rect x="88" y="282" width="196" height="40" rx="20" fill="#e5484d" fill-opacity="0.16"/>
+      <text x="186" y="309" text-anchor="middle" fill="#ff8b8e">Writing · 写作</text>
+      <rect x="298" y="282" width="196" height="40" rx="20" fill="#7c66dc" fill-opacity="0.18"/>
+      <text x="396" y="309" text-anchor="middle" fill="#b9aaff">Audio &amp; Video · 影音</text>
+      <rect x="508" y="282" width="196" height="40" rx="20" fill="#3e9bf0" fill-opacity="0.16"/>
+      <text x="606" y="309" text-anchor="middle" fill="#8ec8ff">Apple Dev · 苹果开发</text>
+      <rect x="718" y="282" width="196" height="40" rx="20" fill="#30a46c" fill-opacity="0.16"/>
+      <text x="816" y="309" text-anchor="middle" fill="#7ee2a8">Tools · 工具</text>
+    </g>
+    <text x="1192" y="309" text-anchor="end" font-size="22" fill="#667085" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">SKILL.md</text>
+  </g>
+</svg>

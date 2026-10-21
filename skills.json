@@ -1,54 +1,72 @@
 {
   "voice-clone": {
     "en": "Clone your own voice locally on a Mac (Apple Silicon) with CosyVoice3 and generate Chinese / mixed Chinese-English narration.",
-    "zh": "在 Mac 本地复刻你自己的声音，生成中文（及中英混合）配音。"
+    "zh": "在 Mac 本地复刻你自己的声音，生成中文（及中英混合）配音。",
+    "category": "media"
   },
   "code-cinema": {
     "en": "Direct and render artistic music videos / short films in code. Analyses your song, then invents a fitting visual style for it; the style library grows with every film.",
-    "zh": "用代码导演并渲染有艺术性的 MV 与短片：先分析歌，再原创贴合它的画面风格，风格库随每支片子增长。"
+    "zh": "用代码导演并渲染有艺术性的 MV 与短片：先分析歌，再原创贴合它的画面风格，风格库随每支片子增长。",
+    "category": "media"
   },
   "skill-refine": {
     "en": "After you edit any skill, consolidate it: file new rules under the right topic, merge duplicates, resolve contradictions, keep SKILL.md lean. Ships a read-only linter and an optional reminder hook.",
-    "zh": "每次改完 skill 自动做一遍精炼：新规则归到对的主题、合并重复、消除前后冲突、控制篇幅；附只读体检脚本和可选的提醒钩子。"
+    "zh": "每次改完 skill 自动做一遍精炼：新规则归到对的主题、合并重复、消除前后冲突、控制篇幅；附只读体检脚本和可选的提醒钩子。",
+    "category": "tools"
   },
   "novel": {
     "en": "Write web serials at million-character scale, chapter by chapter, without losing the thread: layered context loading, continuity log, character state, foreshadowing tracker, beat sheet, and a post-chapter checklist. Tuned for Fanqie Novel.",
-    "zh": "百万字级长篇网文逐章续写不丢线：分层加载上下文、连贯性日志、角色状态、伏笔追踪、节拍表和写后校验清单；按番茄小说平台的规则调校。"
+    "zh": "百万字级长篇网文逐章续写不丢线：分层加载上下文、连贯性日志、角色状态、伏笔追踪、节拍表和写后校验清单；按番茄小说平台的规则调校。",
+    "category": "writing"
   },
   "apple-app-localization": {
     "en": "Localize Apple-platform apps with Xcode String Catalogs: migrate legacy .strings, plurals, generated symbols, translate and review against the OS's own terminology, locale QA.",
-    "zh": "用 Xcode String Catalog 给苹果平台 app 做国际化与翻译：迁移旧 .strings、复数、生成符号，按系统自身译名翻译并复核，多语言验收。"
+    "zh": "用 Xcode String Catalog 给苹果平台 app 做国际化与翻译：迁移旧 .strings、复数、生成符号，按系统自身译名翻译并复核，多语言验收。",
+    "category": "apple"
   },
   "ship-macos-apps": {
     "en": "Develop and ship native macOS apps safely with an AI coding agent: Debug/Release identity separation, signing, TCC permissions, menu bar items, TestFlight and App Review gates.",
-    "zh": "和 AI 编程 agent 一起安全地开发、发布 macOS 原生 app：Debug/Release 身份分离、签名、隐私权限、菜单栏图标、TestFlight 与上架检查。"
+    "zh": "和 AI 编程 agent 一起安全地开发、发布 macOS 原生 app：Debug/Release 身份分离、签名、隐私权限、菜单栏图标、TestFlight 与上架检查。",
+    "category": "apple"
   },
   "suno-music-producer": {
     "en": "Write and revise original songs for Suno, outputting ready-to-paste Title, Styles, parameters and Lyrics.",
-    "zh": "为 Suno 创作和修改原创歌曲，直接输出可粘贴的 Title、Styles、参数和 Lyrics。"
+    "zh": "为 Suno 创作和修改原创歌曲，直接输出可粘贴的 Title、Styles、参数和 Lyrics。",
+    "category": "media"
   },
   "wechat-article": {
     "en": "Plan, research and write WeChat Official Account articles that read like a person wrote them: topic card, evidence, titles, cutting, quality gates; hands off to wechat-typeset for layout; optional draft upload.",
-    "zh": "策划、研究、撰写微信公众号文章，去掉 AI 腔：选题卡、证据、标题与首屏、删稿、发布前质量门；可选推送到草稿箱。"
+    "zh": "策划、研究、撰写微信公众号文章，去掉 AI 腔：选题卡、证据、标题与首屏、删稿、发布前质量门；可选推送到草稿箱。",
+    "category": "writing"
   },
   "wechat-typeset": {
     "en": "Typeset a Markdown article for the WeChat Official Account editor in a quiet 'book page' style: whitespace, ink-grey text, one vermilion accent, not a word of the source changed. Ships a renderer, a compliance checker and a copy-to-editor preview.",
-    "zh": "把 Markdown 母稿排成公众号正文，“书页”风格：留白、墨色、全篇一种朱砂点缀，原文一个字不改；附渲染、合规校验和一键复制的预览页。"
+    "zh": "把 Markdown 母稿排成公众号正文，“书页”风格：留白、墨色、全篇一种朱砂点缀，原文一个字不改；附渲染、合规校验和一键复制的预览页。",
+    "category": "writing"
   },
   "chinese-human-editor": {
     "en": "A final de-AI-voice pass for finished Chinese writing: strip false contrasts, fake aphorisms, tidy parallelism, abstract filler and empty uplift, then check with a script that numbers, quotes, names and links did not drift.",
-    "zh": "中文成稿的去 AI 腔终审：清除假转折、假金句、整齐排比、抽象词和万能升华，再用脚本核对数字、引语、专名、链接没有漂移。"
+    "zh": "中文成稿的去 AI 腔终审：清除假转折、假金句、整齐排比、抽象词和万能升华，再用脚本核对数字、引语、专名、链接没有漂移。",
+    "category": "writing"
   },
   "project-cleanup": {
     "en": "Reclaim disk space from a project and the toolchain caches behind it (Xcode, Node, Python, Rust, Gradle, Docker): inventory first, delete what is useless, keep what gets reused, check references, then report. Ships a read-only scanner.",
-    "zh": "清理项目和它背后的工具缓存（Xcode、Node、Python、Rust、Gradle、Docker）：先盘点，没用的删、会复用的留，查清引用再动手，最后报告释放多少；附只读盘点脚本。"
+    "zh": "清理项目和它背后的工具缓存（Xcode、Node、Python、Rust、Gradle、Docker）：先盘点，没用的删、会复用的留，查清引用再动手，最后报告释放多少；附只读盘点脚本。",
+    "category": "tools"
   },
   "zlib-books": {
     "en": "Find, download and send e-books to a Kindle from the terminal using the zlib CLI: search with quality filters, pick the best edition, download, and email it to Kindle with a bundled script. You must already have your own account.",
-    "zh": "用 zlib 命令行搜书、下载电子书并推送到 Kindle：按质量规则挑选最佳版本，附自带的发信脚本；需要你自己的账号。"
+    "zh": "用 zlib 命令行搜书、下载电子书并推送到 Kindle：按质量规则挑选最佳版本，附自带的发信脚本；需要你自己的账号。",
+    "category": "tools"
   },
   "douyin-interest-card": {
     "en": "Make Douyin \"interest cards\" (interactive AI content cards built in Douyin Creator Center's AI Workshop): design the mini-game, write card and landing-page copy, check against the platform's creation rules, generate and fix it in AI Workshop, then publish for review.",
-    "zh": "做抖音兴趣卡（在创作者中心 AI工坊 生成的可交互 AI 内容卡）：设计玩法、写卡片和落地页文案、按平台规范自查、在 AI工坊 生成和修改、提交审核。"
+    "zh": "做抖音兴趣卡（在创作者中心 AI工坊 生成的可交互 AI 内容卡）：设计玩法、写卡片和落地页文案、按平台规范自查、在 AI工坊 生成和修改、提交审核。",
+    "category": "writing"
+  },
+  "plain-reply": {
+    "en": "Turn what you just found, reconciled or debugged into a ready-to-send chat message in plain words: conclusion first, one short block per person or item, every number with its unit, insider vs. outsider wording kept apart, and it learns from how you edit its drafts.",
+    "zh": "把查完、算完、排完障的结果写成能直接粘贴发出去的“人话”消息：先给结论，按对象分段，数字带单位，对内对外口径分开；你改过的稿子它会学进去。",
+    "category": "writing"
   }
 }

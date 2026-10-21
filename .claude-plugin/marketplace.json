@@ -54,6 +54,15 @@
       ]
     },
     {
+      "name": "plain-reply",
+      "description": "Turn what you just found, reconciled or debugged into a ready-to-send chat message in plain words: conclusion first, one short block per person or item, every number with its unit, insider vs. outsider wording kept apart, and it learns from how you edit its drafts. 把查完、算完、排完障的结果写成能直接粘贴发出去的“人话”消息：先给结论，按对象分段，数字带单位，对内对外口径分开；你改过的稿子它会学进去。",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/plain-reply"
+      ]
+    },
+    {
       "name": "project-cleanup",
       "description": "Reclaim disk space from a project and the toolchain caches behind it (Xcode, Node, Python, Rust, Gradle, Docker): inventory first, delete what is useless, keep what gets reused, check references, then report. Ships a read-only scanner. 清理项目和它背后的工具缓存（Xcode、Node、Python、Rust、Gradle、Docker）：先盘点，没用的删、会复用的留，查清引用再动手，最后报告释放多少；附只读盘点脚本。",
       "source": "./",
