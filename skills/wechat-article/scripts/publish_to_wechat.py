@@ -197,6 +197,17 @@ def create_draft(token: str, articles: list[dict]) -> str:
     return data["media_id"]
 
 
+def update_draft(token: str, media_id: str, article: dict) -> None:
+    data = http_post_json(
+        f"{BASE_URL}/draft/update",
+        {"access_token": token},
+        {"media_id": media_id, "index": 0, "articles": article},
+        timeout=60,
+    )
+    if data.get("errcode", 0) != 0:
+        raise RuntimeError(f"更新草稿失败: {data}")
+
+
 def freepublish(token: str, media_id: str) -> str:
     data = http_post_json(
         f"{BASE_URL}/freepublish/submit",
@@ -532,6 +543,7 @@ def publish(
     author: str,
     digest_override: str | None,
     preview_only: bool,
+    update_media_id: str | None = None,
 ) -> str | None:
     article = parse_article_md(md_path)
     html_path = find_gzh_html(md_path, content_html)
@@ -561,22 +573,24 @@ def publish(
     author_name = author or os.environ.get("WECHAT_AUTHOR", "")
     source_url = os.environ.get("WECHAT_CONTENT_SOURCE_URL", "")
 
-    print("创建草稿...")
-    draft_id = create_draft(
-        token,
-        [
-            {
-                "title": article["title"],
-                "content": html_content,
-                "thumb_media_id": thumb_media_id,
-                "author": author_name,
-                "digest": digest,
-                "content_source_url": source_url,
-                "need_open_comment": 1,
-            }
-        ],
-    )
-    print(f"草稿创建成功: {draft_id}")
+    article_payload = {
+        "title": article["title"],
+        "content": html_content,
+        "thumb_media_id": thumb_media_id,
+        "author": author_name,
+        "digest": digest,
+        "content_source_url": source_url,
+        "need_open_comment": 1,
+    }
+    if update_media_id:
+        print("更新草稿...")
+        update_draft(token, update_media_id, article_payload)
+        draft_id = update_media_id
+        print(f"草稿已更新: {draft_id}")
+    else:
+        print("创建草稿...")
+        draft_id = create_draft(token, [article_payload])
+        print(f"草稿创建成功: {draft_id}")
 
     if publish_now:
         print("提交发布...")
@@ -608,6 +622,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--author", default="", help="公众号作者名，默认读取 WECHAT_AUTHOR")
     parser.add_argument("--digest", help="公众号摘要，默认从 Markdown 正文提取")
     parser.add_argument("--publish-status", help="查询 publish_id 状态")
+    parser.add_argument("--update", metavar="MEDIA_ID", help="原地更新已有草稿（第一篇），不新建")
     parser.add_argument("--with-images", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument("--no-images", action="store_true", help=argparse.SUPPRESS)
     return parser
@@ -642,6 +657,7 @@ def main() -> None:
             author=args.author,
             digest_override=args.digest,
             preview_only=args.preview,
+            update_media_id=args.update,
         )
     except Exception as exc:
         print(f"\n错误: {exc}", file=sys.stderr)

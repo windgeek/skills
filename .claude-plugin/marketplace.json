@@ -127,7 +127,7 @@
     },
     {
       "name": "wechat-typeset",
-      "description": "Typeset a Markdown article for the WeChat Official Account editor in a quiet 'book page' style: whitespace, ink-grey text, one vermilion accent, not a word of the source changed. Ships a renderer, a compliance checker and a copy-to-editor preview. 把 Markdown 母稿排成公众号正文，“书页”风格：留白、墨色、全篇一种朱砂点缀，原文一个字不改；附渲染、合规校验和一键复制的预览页。",
+      "description": "Typeset a Markdown article for the WeChat Official Account editor in a quiet 'book page' style: serif text, centred headings, whitespace, one accent colour, not a word of the source changed. Ships a renderer, a compliance checker and a copy-to-editor preview. 把 Markdown 母稿排成公众号正文，“书页”风格：宋体、居中标题、留白、全篇一种点缀色，原文一个字不改；附渲染、合规校验和一键复制的预览页。",
       "source": "./",
       "strict": false,
       "skills": [

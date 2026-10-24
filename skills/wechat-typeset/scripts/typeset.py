@@ -28,6 +28,7 @@ FAINT = "#b9b4aa"        # 分隔符号
 RULE = "#e7e3db"         # 细线
 PAPER = "#f6f4ef"        # 代码、表头的纸色
 DEFAULT_ACCENT = "#9a3b26"  # 朱砂：全篇唯一的颜色
+SERIF = "'Songti SC','Noto Serif SC','Source Han Serif SC','Noto Serif CJK SC',STSong,serif"  # 书页：宋体；安卓没有时退回系统字体
 MONO = "Menlo,Consolas,'SF Mono',monospace"
 
 FINE_PRINT_HEADINGS = re.compile(
@@ -149,8 +150,8 @@ def p_style(ctx, text="", size=16, color=INK):
     if ctx.fine_print:
         size, color = 13, GREY
     lh = "1.8" if size <= 14 else "1.9"
-    return (f"margin:0 0 1.35em;font-size:{size}px;line-height:{lh};color:{color};"
-            f"letter-spacing:0.04em;text-align:{align_for(text)};")
+    return (f"margin:0 0 1.35em;font-family:{SERIF};font-size:{size}px;line-height:{lh};color:{color};"
+            f"letter-spacing:0.05em;text-align:{align_for(text)};")
 
 
 def split_blocks(md):
@@ -276,16 +277,13 @@ def render(md, accent=DEFAULT_ACCENT, numbers=False, keep_title=False, endmark=T
             else:
                 num = ""
                 if numbers and not re.match(r"^([一二三四五六七八九十]+、|\d+[.、])", v):
-                    num = (f'<p style="margin:0 0 0.5em;font-size:13px;line-height:1;color:{accent};'
-                           f'letter-spacing:0.18em;font-family:{MONO};">'
+                    num = (f'<p style="margin:0 0 0.7em;font-size:13px;line-height:1;color:{accent};'
+                           f'letter-spacing:0.18em;font-family:{MONO};text-align:center;">'
                            f'{leaf(f"{ctx.h2_count:02d}")}</p>')
-                bar = ("" if num else
-                       f'<section style="width:20px;height:2px;background:{accent};margin:0 0 0.9em;'
-                       f'font-size:0;line-height:0;overflow:hidden;"><span leaf="">.</span></section>')
                 out.append(
-                    f'<section style="margin:2.8em 0 1.3em;">{num}{bar}'
-                    f'<p style="margin:0;font-size:19px;line-height:1.55;font-weight:600;color:{INK_STRONG};'
-                    f'letter-spacing:0.05em;">{inl.render(v)}</p></section>')
+                    f'<section style="margin:3.2em 0 1.6em;text-align:center;">{num}'
+                    f'<p style="margin:0;font-family:{SERIF};font-size:20px;line-height:1.55;font-weight:700;'
+                    f'color:{INK_STRONG};letter-spacing:0.16em;text-align:center;">{inl.render(v)}</p></section>')
             first_content = False
             continue
 
@@ -471,7 +469,7 @@ def render(md, accent=DEFAULT_ACCENT, numbers=False, keep_title=False, endmark=T
         report.warn(f"==高亮== 用了 {ctx.marks} 处，全篇最多 3 处")
 
     body = "".join(out)
-    root = (f'<section style="margin:0 auto;padding:0;font-size:16px;line-height:1.9;color:{INK};'
+    root = (f'<section style="margin:0 auto;padding:0;font-family:{SERIF};font-size:16px;line-height:1.9;color:{INK};'
             f'letter-spacing:0.04em;word-break:break-word;">{body}</section>')
     if title is None:
         report.warn("母稿没有 # 标题；公众号标题需要在发布时单独填写")

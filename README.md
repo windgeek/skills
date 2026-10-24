@@ -38,7 +38,7 @@ Copy a folder from `skills/` into your agent's skills directory, for example `~/
 | [`novel`](#novel) | Write web serials at million-character scale, chapter by chapter, without losing the thread: layered context loading, continuity log, character state, foreshadowing tracker, beat sheet, and a post-chapter checklist. Tuned for Fanqie Novel. |
 | [`plain-reply`](#plain-reply) | Turn what you just found, reconciled or debugged into a ready-to-send chat message in plain words: conclusion first, one short block per person or item, every number with its unit, insider vs. outsider wording kept apart, and it learns from how you edit its drafts. |
 | [`wechat-article`](#wechat-article) | Plan, research and write WeChat Official Account articles that read like a person wrote them: topic card, evidence, titles, cutting, quality gates; hands off to wechat-typeset for layout; optional draft upload. |
-| [`wechat-typeset`](#wechat-typeset) | Typeset a Markdown article for the WeChat Official Account editor in a quiet 'book page' style: whitespace, ink-grey text, one vermilion accent, not a word of the source changed. Ships a renderer, a compliance checker and a copy-to-editor preview. |
+| [`wechat-typeset`](#wechat-typeset) | Typeset a Markdown article for the WeChat Official Account editor in a quiet 'book page' style: serif text, centred headings, whitespace, one accent colour, not a word of the source changed. Ships a renderer, a compliance checker and a copy-to-editor preview. |
 
 ### Audio & video
 
@@ -110,7 +110,7 @@ Requires: Python 3.
 
 ## wechat-typeset
 
-Typesets a Markdown article for the WeChat Official Account editor in one quiet "book page" style: generous whitespace, ink-grey text, and a single vermilion accent used only for section marks, list markers, footnote numbers and a small end mark. No cards, icons or gradients. A script does the layout deterministically, so the source text is never rewritten.
+Typesets a Markdown article for the WeChat Official Account editor in one quiet "book page" style: serif body text, centred chapter headings, generous whitespace, and a single accent colour (vermilion by default, adjustable to suit the article) used only for section numbers, list markers, footnote numbers and a small end mark. No cards, icons or gradients. A script does the layout deterministically, so the source text is never rewritten.
 
 - Links become footnote numbers with URLs listed after the body, since in-body links don't work in WeChat.
 - Includes a compliance checker and a phone-width preview with a dark-mode toggle and a one-click copy button.
