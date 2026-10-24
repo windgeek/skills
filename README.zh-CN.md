@@ -155,7 +155,7 @@ Agent Skill 是一个文件夹，里面是说明、参考资料和脚本，AI ag
 
 ## knowledge-placement
 
-同时用几个 agent 时，每个 agent 都有自己的“记忆”。Claude Code 的自动记忆存在 `~/.claude/projects/<项目>/memory/`，只有 Claude 读得到：写在那里的规则，对 Codex 等于不存在。记忆还按项目路径存放，项目搬家、改名后就悄悄失联。这个 skill 让 agent 把每条知识只写一处，而且写在所有 agent 都读得到的地方：一份全局约定（其他 agent 的全局文件软链接过去）、一个共享的 skill 目录、项目的 `AGENTS.md`（`CLAUDE.md`、`GEMINI.md` 软链接到它）、放长内容的项目文档；私有记忆只留指针。也包括定期梳理：备份、盘点、逐条搬走或删除、报告。
+同时用几个 agent 时，每个 agent 都有自己的“记忆”。Claude Code 的自动记忆存在 `~/.claude/projects/<项目>/memory/`，只有 Claude 读得到：写在那里的规则，对 Codex 等于不存在。记忆还按项目路径存放，项目搬家、改名后就悄悄失联。这个 skill 让 agent 把每条知识只写一处，而且写在所有 agent 都读得到的地方：一份全局约定（其他 agent 的全局文件软链接过去）、一个共享的 skill 目录、项目的 `AGENTS.md`（`CLAUDE.md`、`GEMINI.md` 软链接到它）、放长内容的项目文档；私有记忆只放那个 agent 专属的东西，通常是空的。也包括定期梳理：备份、盘点、逐条搬走或删除、报告。
 
 - `inventory.py`（只读）：列出每个 Claude Code 记忆目录、对应的项目（已不存在的会标出）、项目里有哪些说明文件、每条记忆的类型和大小。
 
