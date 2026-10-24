@@ -32,7 +32,7 @@ SERIF = "'Songti SC','Noto Serif SC','Source Han Serif SC','Noto Serif CJK SC',S
 MONO = "Menlo,Consolas,'SF Mono',monospace"
 
 FINE_PRINT_HEADINGS = re.compile(
-    r"^(信息来源|参考资料|参考文献|资料来源|来源|注释|延伸阅读|免责声明|说明)$")
+    r"^(信息来源|信息参考|参考资料|参考文献|资料来源|来源|注释|延伸阅读|免责声明|说明)$")
 
 
 def esc(s):
