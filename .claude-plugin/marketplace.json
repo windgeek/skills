@@ -45,6 +45,15 @@
       ]
     },
     {
+      "name": "knowledge-placement",
+      "description": "Decide where a lesson, rule or decision should live so every agent you use (Claude Code, Codex, Gemini CLI...) can read it: global conventions, a shared skill, the project's AGENTS.md, project docs, or an agent's private memory. Also audits and migrates scattered memories. Ships a read-only inventory script for Claude Code memory. 决定一条经验、规则、决定该写在哪里，让你用的所有 agent（Claude Code、Codex、Gemini CLI……）都读得到：全局约定、共享 skill、项目 AGENTS.md、项目文档，还是某个 agent 的私有记忆；也负责盘点和迁移散落的记忆。附 Claude Code 记忆的只读盘点脚本。",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/knowledge-placement"
+      ]
+    },
+    {
       "name": "novel",
       "description": "Write web serials at million-character scale, chapter by chapter, without losing the thread: layered context loading, continuity log, character state, foreshadowing tracker, beat sheet, and a post-chapter checklist. Tuned for Fanqie Novel. 百万字级长篇网文逐章续写不丢线：分层加载上下文、连贯性日志、角色状态、伏笔追踪、节拍表和写后校验清单；按番茄小说平台的规则调校。",
       "source": "./",

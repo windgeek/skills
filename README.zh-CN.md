@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
-  <img alt="Skills" src="https://img.shields.io/badge/skills-14-brightgreen.svg">
+  <img alt="Skills" src="https://img.shields.io/badge/skills-15-brightgreen.svg">
   <img alt="Format" src="https://img.shields.io/badge/format-SKILL.md-orange.svg">
 </p>
 
@@ -59,6 +59,7 @@ Agent Skill 是一个文件夹，里面是说明、参考资料和脚本，AI ag
 
 | Skill | 做什么 |
 |---|---|
+| [`knowledge-placement`](#knowledge-placement) | 决定一条经验、规则、决定该写在哪里，让你用的所有 agent（Claude Code、Codex、Gemini CLI……）都读得到：全局约定、共享 skill、项目 AGENTS.md、项目文档，还是某个 agent 的私有记忆；也负责盘点和迁移散落的记忆。附 Claude Code 记忆的只读盘点脚本。 |
 | [`project-cleanup`](#project-cleanup) | 清理项目和它背后的工具缓存（Xcode、Node、Python、Rust、Gradle、Docker）：先盘点，没用的删、会复用的留，查清引用再动手，最后报告释放多少；附只读盘点脚本。 |
 | [`skill-refine`](#skill-refine) | 每次改完 skill 自动做一遍精炼：新规则归到对的主题、合并重复、消除前后冲突、控制篇幅；附只读体检脚本和可选的提醒钩子。 |
 | [`zlib-books`](#zlib-books) | 用 zlib 命令行搜书、下载电子书并推送到 Kindle：按质量规则挑选最佳版本，附自带的发信脚本；需要你自己的账号。 |
@@ -151,6 +152,14 @@ Agent Skill 是一个文件夹，里面是说明、参考资料和脚本，AI ag
 让 AI 编程 agent 参与 macOS app 开发时，最容易出事的是“身份”：Debug 和正式版共用 bundle ID、agent 从命令行启动了正式版，结果隐私权限、菜单栏图标在开发机上错乱，别人的机器却正常。这个 skill 把开发、本地 Release、TestFlight、上架分成四条互不污染的线，并附只读的项目和已安装 app 体检脚本、发布前检查清单，以及改版本号和 build 号（可直接在原来的基础上加一）、核对归档版本号的小脚本（避免 Organizer 里显示旧 build 号），以及不用打开 Xcode 的归档和上传脚本（上传前先列出版本、团队、权限，确认后才传；支持 iOS 和 Mac Catalyst）。另有商店截图海报、App Store Connect 多语言填写与截图上传、iPhone Duo（折叠屏）适配的经验。
 
 需要：macOS、Xcode。
+
+## knowledge-placement
+
+同时用几个 agent 时，每个 agent 都有自己的“记忆”。Claude Code 的自动记忆存在 `~/.claude/projects/<项目>/memory/`，只有 Claude 读得到：写在那里的规则，对 Codex 等于不存在。记忆还按项目路径存放，项目搬家、改名后就悄悄失联。这个 skill 让 agent 把每条知识只写一处，而且写在所有 agent 都读得到的地方：一份全局约定（其他 agent 的全局文件软链接过去）、一个共享的 skill 目录、项目的 `AGENTS.md`（`CLAUDE.md`、`GEMINI.md` 软链接到它）、放长内容的项目文档；私有记忆只留指针。也包括定期梳理：备份、盘点、逐条搬走或删除、报告。
+
+- `inventory.py`（只读）：列出每个 Claude Code 记忆目录、对应的项目（已不存在的会标出）、项目里有哪些说明文件、每条记忆的类型和大小。
+
+需要：Python 3（运行脚本时）。
 
 ## project-cleanup
 

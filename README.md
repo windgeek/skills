@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
-  <img alt="Skills" src="https://img.shields.io/badge/skills-14-brightgreen.svg">
+  <img alt="Skills" src="https://img.shields.io/badge/skills-15-brightgreen.svg">
   <img alt="Format" src="https://img.shields.io/badge/format-SKILL.md-orange.svg">
 </p>
 
@@ -59,6 +59,7 @@ Copy a folder from `skills/` into your agent's skills directory, for example `~/
 
 | Skill | What it does |
 |---|---|
+| [`knowledge-placement`](#knowledge-placement) | Decide where a lesson, rule or decision should live so every agent you use (Claude Code, Codex, Gemini CLI...) can read it: global conventions, a shared skill, the project's AGENTS.md, project docs, or an agent's private memory. Also audits and migrates scattered memories. Ships a read-only inventory script for Claude Code memory. |
 | [`project-cleanup`](#project-cleanup) | Reclaim disk space from a project and the toolchain caches behind it (Xcode, Node, Python, Rust, Gradle, Docker): inventory first, delete what is useless, keep what gets reused, check references, then report. Ships a read-only scanner. |
 | [`skill-refine`](#skill-refine) | After you edit any skill, consolidate it: file new rules under the right topic, merge duplicates, resolve contradictions, keep SKILL.md lean. Ships a read-only linter and an optional reminder hook. |
 | [`zlib-books`](#zlib-books) | Find, download and send e-books to a Kindle from the terminal using the zlib CLI: search with quality filters, pick the best edition, download, and email it to Kindle with a bundled script. You must already have your own account. |
@@ -151,6 +152,14 @@ Requires: macOS, Xcode 26+, Python 3.
 When an AI coding agent helps build a macOS app, the usual failures are about identity: Debug and Release share a bundle ID, or the agent launches the production build from a shell, and permissions or the menu bar icon break on the developer's Mac only. This skill keeps development, local Release, TestFlight and App Store as four separate lanes, with read-only project / installed-app audits, release gates, and small scripts to set or increment the version and build number, check that an archive shows the build it contains, and archive and upload without opening Xcode (the upload prints a summary and waits for confirmation; iOS and Mac Catalyst too). It also covers store screenshot posters, filling App Store Connect pages and uploading screenshots per locale, and iPhone Duo (foldable) support.
 
 Requires: macOS, Xcode.
+
+## knowledge-placement
+
+If you use several agents, each one keeps its own "memory". Claude Code's auto-memory lives under `~/.claude/projects/<project>/memory/` and only Claude reads it: a rule saved there does not exist for Codex. Memories are also keyed by project path, so moving or renaming a project silently orphans them. This skill has the agent write each piece of knowledge once, where every agent can read it: one global conventions file (other agents' global files symlinked to it), one shared skills directory, the project's `AGENTS.md` (with `CLAUDE.md` / `GEMINI.md` as symlinks), and project docs for long material. Private memory keeps only pointers. It also covers a periodic audit: back up, inventory, move or delete each memory, and report.
+
+- `inventory.py` (read-only): lists each Claude Code memory directory, the project it maps to (flags ones that no longer exist), which instruction files the project has, and every memory entry with type and size.
+
+Requires: Python 3 (for the script).
 
 ## project-cleanup
 
