@@ -70,8 +70,8 @@
     "category": "writing"
   },
   "knowledge-placement": {
-    "en": "Decide where a lesson, rule or decision should live so every agent you use (Claude Code, Codex, Gemini CLI...) can read it: global conventions, a shared skill, the project's AGENTS.md, project docs, or an agent's private memory. Also audits and migrates scattered memories. Ships a read-only inventory script for Claude Code memory.",
-    "zh": "决定一条经验、规则、决定该写在哪里，让你用的所有 agent（Claude Code、Codex、Gemini CLI……）都读得到：全局约定、共享 skill、项目 AGENTS.md、项目文档，还是某个 agent 的私有记忆；也负责盘点和迁移散落的记忆。附 Claude Code 记忆的只读盘点脚本。",
+    "en": "Decide where a lesson, rule or decision should live so every agent you use (Claude Code, Codex, Gemini CLI, Antigravity...) can read it: global conventions, a shared skill, the project's AGENTS.md, project docs, or an agent's private memory. Also audits and migrates scattered memories. Ships a read-only inventory script for Claude Code memory.",
+    "zh": "决定一条经验、规则、决定该写在哪里，让你用的所有 agent（Claude Code、Codex、Gemini CLI、Antigravity……）都读得到：全局约定、共享 skill、项目 AGENTS.md、项目文档，还是某个 agent 的私有记忆；也负责盘点和迁移散落的记忆。附 Claude Code 记忆的只读盘点脚本。",
     "category": "tools"
   }
 }

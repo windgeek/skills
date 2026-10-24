@@ -59,7 +59,7 @@ Copy a folder from `skills/` into your agent's skills directory, for example `~/
 
 | Skill | What it does |
 |---|---|
-| [`knowledge-placement`](#knowledge-placement) | Decide where a lesson, rule or decision should live so every agent you use (Claude Code, Codex, Gemini CLI...) can read it: global conventions, a shared skill, the project's AGENTS.md, project docs, or an agent's private memory. Also audits and migrates scattered memories. Ships a read-only inventory script for Claude Code memory. |
+| [`knowledge-placement`](#knowledge-placement) | Decide where a lesson, rule or decision should live so every agent you use (Claude Code, Codex, Gemini CLI, Antigravity...) can read it: global conventions, a shared skill, the project's AGENTS.md, project docs, or an agent's private memory. Also audits and migrates scattered memories. Ships a read-only inventory script for Claude Code memory. |
 | [`project-cleanup`](#project-cleanup) | Reclaim disk space from a project and the toolchain caches behind it (Xcode, Node, Python, Rust, Gradle, Docker): inventory first, delete what is useless, keep what gets reused, check references, then report. Ships a read-only scanner. |
 | [`skill-refine`](#skill-refine) | After you edit any skill, consolidate it: file new rules under the right topic, merge duplicates, resolve contradictions, keep SKILL.md lean. Ships a read-only linter and an optional reminder hook. |
 | [`zlib-books`](#zlib-books) | Find, download and send e-books to a Kindle from the terminal using the zlib CLI: search with quality filters, pick the best edition, download, and email it to Kindle with a bundled script. You must already have your own account. |

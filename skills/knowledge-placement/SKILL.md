@@ -1,11 +1,11 @@
 ---
 name: knowledge-placement
-description: 决定一条经验、规则、决定或项目状态该写在哪里，让 Claude Code、Codex、Gemini CLI 等所有 agent 都读得到：全局约定、skill、项目 AGENTS.md、项目文档，还是只给某一个 agent 的私有记忆。也负责定期把各项目梳理一遍：盘点记忆、搬到共享位置、合并重复、清掉过期的。凡是要“记住这个 / 以后都这样 / 写进记忆 / 写进 AGENTS.md / 更新 CLAUDE.md / 把经验沉淀下来 / 整理记忆 / 梳理项目说明 / 多 agent 协作怎么共享上下文”，或你准备写记忆（memory）之前，都应使用本 skill。Use before saving any memory, and to audit where agent knowledge lives across projects.
+description: 决定一条经验、规则、决定或项目状态该写在哪里，让 Claude Code、Codex、Gemini CLI、Antigravity 等所有 agent 都读得到：全局约定、skill、项目 AGENTS.md、项目文档，还是只给某一个 agent 的私有记忆。也负责定期把各项目梳理一遍：盘点记忆、搬到共享位置、合并重复、清掉过期的。凡是要“记住这个 / 以后都这样 / 写进记忆 / 写进 AGENTS.md / 更新 CLAUDE.md / 把经验沉淀下来 / 整理记忆 / 梳理项目说明 / 多 agent 协作怎么共享上下文”，或你准备写记忆（memory）之前，都应使用本 skill。Use before saving any memory, and to audit where agent knowledge lives across projects.
 ---
 
 # 知识放在哪里
 
-同时用几个 agent（Claude Code、Codex、Gemini CLI……）时，每个 agent 都有自己的“记忆”。Claude Code 的自动记忆存在 `~/.claude/projects/<项目>/memory/`，只有 Claude 能读；换一个 agent 接手，那些规则等于不存在。所以：
+同时用几个 agent（Claude Code、Codex、Gemini CLI、Antigravity……）时，每个 agent 都有自己的“记忆”。Claude Code 的自动记忆存在 `~/.claude/projects/<项目>/memory/`，只有 Claude 能读；换一个 agent 接手，那些规则等于不存在。所以：
 
 **一条知识只写一处，而且写在所有 agent 都读得到的地方。私有记忆只放那个 agent 专属的东西，没有就空着。**
 
@@ -13,8 +13,8 @@ description: 决定一条经验、规则、决定或项目状态该写在哪里�
 
 | 位置 | 谁读得到 | 放什么 |
 |---|---|---|
-| 全局约定：一份真文件，各 agent 的全局说明文件软链接到它（例如 `~/.claude/CLAUDE.md` 为真文件，`~/.codex/AGENTS.md`、`~/.gemini/GEMINI.md` 指向它） | 所有 agent，所有项目，每次会话自动加载 | 跨项目的个人习惯：语言、提交信息、shell 的坑、提问方式、善后、关于用户的基本信息。每条一两行，整份控制在一屏左右 |
-| skill：一个共享目录（例如 `~/.agents/skills/<名>/`），各 agent 的 skill 目录软链接到它 | 所有支持 skill 的 agent，跨项目 | 怎么做某一类事：流程、标准、技法、踩过的坑和证据。项目无关的部分 |
+| 全局约定：一份真文件，各 agent 的全局说明文件软链接到它（例如 `~/.claude/CLAUDE.md` 为真文件，`~/.codex/AGENTS.md`、`~/.gemini/GEMINI.md` 指向它；Gemini CLI 和 Antigravity 都读后者） | 所有 agent，所有项目，每次会话自动加载 | 跨项目的个人习惯：语言、提交信息、shell 的坑、提问方式、善后、关于用户的基本信息。每条一两行，整份控制在一屏左右 |
+| skill：一个共享目录（例如 `~/.agents/skills/<名>/`），各 agent 的 skill 目录软链接到它，如 `~/.claude/skills`、Antigravity 的 `~/.gemini/config/skills` | 所有支持 skill 的 agent，跨项目 | 怎么做某一类事：流程、标准、技法、踩过的坑和证据。项目无关的部分 |
 | 项目 `AGENTS.md`（`CLAUDE.md`、`GEMINI.md` 软链接到它，只有一份真文件） | 在这个项目里工作的所有 agent，自动加载 | 这个项目是什么、目录、命令、当前状态、做过的决定和理由、已查清的“非问题”、只属于这个项目的规则 |
 | 项目文档：`docs/`、`DECISIONS.md`、发版记录等 | 按 AGENTS.md 的指引去读 | 长内容：设计、发版细节、测量数据、交接记录。AGENTS.md 只放一行指过去 |
 | 某个 agent 的私有记忆 | 只有那个 agent | 只放那个 agent 自己才有的东西（它的权限设置、界面细节）。没有就空着，不放“规则在哪里”的指针（全局约定和 AGENTS.md 每次都会加载，指针只是把同一句话再写一遍） |

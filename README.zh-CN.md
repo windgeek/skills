@@ -59,7 +59,7 @@ Agent Skill 是一个文件夹，里面是说明、参考资料和脚本，AI ag
 
 | Skill | 做什么 |
 |---|---|
-| [`knowledge-placement`](#knowledge-placement) | 决定一条经验、规则、决定该写在哪里，让你用的所有 agent（Claude Code、Codex、Gemini CLI……）都读得到：全局约定、共享 skill、项目 AGENTS.md、项目文档，还是某个 agent 的私有记忆；也负责盘点和迁移散落的记忆。附 Claude Code 记忆的只读盘点脚本。 |
+| [`knowledge-placement`](#knowledge-placement) | 决定一条经验、规则、决定该写在哪里，让你用的所有 agent（Claude Code、Codex、Gemini CLI、Antigravity……）都读得到：全局约定、共享 skill、项目 AGENTS.md、项目文档，还是某个 agent 的私有记忆；也负责盘点和迁移散落的记忆。附 Claude Code 记忆的只读盘点脚本。 |
 | [`project-cleanup`](#project-cleanup) | 清理项目和它背后的工具缓存（Xcode、Node、Python、Rust、Gradle、Docker）：先盘点，没用的删、会复用的留，查清引用再动手，最后报告释放多少；附只读盘点脚本。 |
 | [`skill-refine`](#skill-refine) | 每次改完 skill 自动做一遍精炼：新规则归到对的主题、合并重复、消除前后冲突、控制篇幅；附只读体检脚本和可选的提醒钩子。 |
 | [`zlib-books`](#zlib-books) | 用 zlib 命令行搜书、下载电子书并推送到 Kindle：按质量规则挑选最佳版本，附自带的发信脚本；需要你自己的账号。 |
