@@ -202,6 +202,8 @@ python3 <本skill目录>/scripts/publish_to_wechat.py \
 --cover "<封面图路径>" --cover-no-title
 ```
 
+摘要自己写，用 `--digest` 传入：120 字以内，一两句说清这篇讲什么、读者能得到什么，不要让脚本截正文开头（截出来往往停在半句）。
+
 草稿已经建过、只是改了正文或封面，用 `--update <草稿 media_id>` 原地更新，不要再建一篇重复草稿。
 
 发布前确保 HTML 校验通过、图片可上传、封面可用。发布配置从当前目录或本 skill 目录的 `.env` 读取 `WECHAT_APP_ID`、`WECHAT_APP_SECRET`，可选 `WECHAT_AUTHOR`；`.env` 只由用户自己填写，不要提交到任何仓库，也不要在回复里复述其中的值。脚本默认在本 skill 的同级目录 `wechat-typeset/` 找校验和预览脚本，装在别处时设环境变量 `WECHAT_TYPESET_HOME`。

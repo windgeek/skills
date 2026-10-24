@@ -274,10 +274,16 @@ def parse_article_md(filepath: str) -> dict:
 
     body = "\n".join(body_lines)
     plain = re.sub(r"!\[[^\]]*]\([^)]+\)", "", body)
-    plain = re.sub(r"`{1,3}[^`]*`{1,3}", "", plain, flags=re.DOTALL)
-    plain = re.sub(r"[#>*_\-\[\]()`|]", "", plain)
+    plain = re.sub(r"```.*?```", "", plain, flags=re.DOTALL)  # 代码块不进摘要
+    plain = re.sub(r"`([^`]*)`", r"\1", plain)  # 行内代码保留文字，否则会留下空洞
+    plain = re.sub(r"\[([^\]]*)]\([^)]*\)", r"\1", plain)  # 链接只留文字
+    plain = re.sub(r"^\s*(#+|>|[-*]|\d+\.)\s+", "", plain, flags=re.M)
+    plain = re.sub(r"[*_|]", "", plain)
     plain = re.sub(r"\s+", " ", plain).strip()
     digest = plain[:120]
+    cut = max(digest.rfind(ch) for ch in "。！？")
+    if len(plain) > 120 and cut >= 40:
+        digest = digest[: cut + 1]  # 在句末截断，不截在半句
 
     return {"title": title, "digest": digest, "source_line": source_line}
 
